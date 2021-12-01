@@ -7,14 +7,18 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
+protocol RootOutputProtocol {
+    func viewDidAppear()
+}
 
-    var presenter: RootPresenterInput!
+class RootViewController: UIViewController, RootInputProtocol {
+
+    var presenter: RootOutputProtocol!
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        ServiceContainer.buildNavigationService(rootModule: self)
-        self.presenter = RootPresenter(view: self, navService: ServiceContainer.navigationService)
+        NavigationServiceContainer.buildNavigationService(rootModule: self)
+        self.presenter = RootPresenter(view: self, navService: NavigationServiceContainer.navigationService)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +34,5 @@ class RootViewController: UIViewController {
         super.viewDidAppear(animated)
         self.presenter.viewDidAppear()
     }
-    
-    
 }
 

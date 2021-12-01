@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		615EF6592756CB21007958C6 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF6582756CB21007958C6 /* ServiceContainer.swift */; };
+		615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */; };
 		615EF65B2756CE4F007958C6 /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF65A2756CE4F007958C6 /* ArticleListViewController.swift */; };
 		61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1127569AAB00222377 /* AppDelegate.swift */; };
 		61BD7A1427569AAB00222377 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1327569AAB00222377 /* SceneDelegate.swift */; };
 		61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1527569AAB00222377 /* RootViewController.swift */; };
 		61BD7A1B27569AAC00222377 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61BD7A1A27569AAC00222377 /* Assets.xcassets */; };
 		61BD7A1E27569AAC00222377 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61BD7A1C27569AAC00222377 /* LaunchScreen.storyboard */; };
-		61BD7B632756C38200222377 /* RootPresenterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7B622756C38200222377 /* RootPresenterInput.swift */; };
+		61BD7B632756C38200222377 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7B622756C38200222377 /* RootPresenter.swift */; };
 		61BD7B652756C41700222377 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7B642756C41700222377 /* NavigationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		615EF6582756CB21007958C6 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
+		615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationServiceContainer.swift; sourceTree = "<group>"; };
 		615EF65A2756CE4F007958C6 /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
 		61BD7A0E27569AAB00222377 /* NewsAgregatorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsAgregatorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BD7A1127569AAB00222377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -28,7 +28,7 @@
 		61BD7A1A27569AAC00222377 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61BD7A1D27569AAC00222377 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61BD7A1F27569AAC00222377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		61BD7B622756C38200222377 /* RootPresenterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenterInput.swift; sourceTree = "<group>"; };
+		61BD7B622756C38200222377 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		61BD7B642756C41700222377 /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,7 +86,7 @@
 		61BD7B5F2756C2A600222377 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				61BD7B612756C35800222377 /* Presenter */,
+				61BD7B622756C38200222377 /* RootPresenter.swift */,
 				61BD7A1527569AAB00222377 /* RootViewController.swift */,
 			);
 			path = Root;
@@ -99,19 +99,11 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		61BD7B612756C35800222377 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				61BD7B622756C38200222377 /* RootPresenterInput.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		61BD7B662756C84200222377 /* AppServices */ = {
 			isa = PBXGroup;
 			children = (
 				61BD7B642756C41700222377 /* NavigationService.swift */,
-				615EF6582756CB21007958C6 /* ServiceContainer.swift */,
+				615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */,
 			);
 			path = AppServices;
 			sourceTree = "<group>";
@@ -189,9 +181,9 @@
 				61BD7B652756C41700222377 /* NavigationService.swift in Sources */,
 				61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */,
 				61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */,
-				615EF6592756CB21007958C6 /* ServiceContainer.swift in Sources */,
+				615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */,
 				61BD7A1427569AAB00222377 /* SceneDelegate.swift in Sources */,
-				61BD7B632756C38200222377 /* RootPresenterInput.swift in Sources */,
+				61BD7B632756C38200222377 /* RootPresenter.swift in Sources */,
 				615EF65B2756CE4F007958C6 /* ArticleListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

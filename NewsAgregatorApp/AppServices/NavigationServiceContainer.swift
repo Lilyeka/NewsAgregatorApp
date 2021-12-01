@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ServiceContainer {
+class NavigationServiceContainer {
     
     static var navigationService: NavigationServiceProtocol {
         _navigationService
