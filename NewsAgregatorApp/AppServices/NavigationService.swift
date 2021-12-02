@@ -20,8 +20,9 @@ class NavigationService: NavigationServiceProtocol {
     }
         
     func goToArticlesList() {
-        let articlesListVC = ListViewController(presentationStyle: .overFullScreen)
-        self.present(articlesListVC, animated: true)
+        let listModule = UINavigationController(rootViewController: ListModuleAssembly.create())
+        listModule.modalPresentationStyle = .overFullScreen
+        self.present(listModule, animated: true)
     }
     
     private func present(_ controller: UIViewController, animated: Bool) {

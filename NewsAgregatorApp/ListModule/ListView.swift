@@ -7,20 +7,18 @@
 
 import UIKit
 
+protocol ListOutputProtocol: NSObject {
+    func viewDidLoad()
+    func listItemDidSelect()
+}
+
 class ListViewController: UIViewController {
+
+    var presenter: ListOutputProtocol?
     
     fileprivate var tableView: UITableView!
     
-    var listViewModels: [ListViewModel] = [
-        ListViewModel(
-            image: UIImage(named: "default_list_image"),
-            title: NSAttributedString(string: "Заголовок новости 1 Заголовок новости 1Заголовок новости 1Заголовок новости 1"),
-            subTitle: NSAttributedString(string: "Источник новости 1Источник новости 1Источник новости 1Источник новости 1Источник новости 1Источник новости 1"),
-            description: NSAttributedString(string: "Описание новости 1 Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1"),
-            hasBeenReadImage: UIImage(named: "read_mark")
-        )
-    ]
-    
+    var listViewModels: [ListViewModel]?    
     var settingsModel = true
     
     init(presentationStyle: UIModalPresentationStyle) {
@@ -37,6 +35,8 @@ class ListViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setupUI()
         self.setupLayout()
+        self.presenter?.viewDidLoad()
+        
     }
     
     func setupUI() {
@@ -65,14 +65,16 @@ extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as? ListTableViewCell else { return UITableViewCell() }
         
-         let viewModel = listViewModels[indexPath.row]
-        cell.isExtendedMode = settingsModel //
+        let viewModel = listViewModels?[indexPath.row]
+        cell.isExtendedMode = settingsModel
         cell.viewModel = viewModel
       
-       // cell.dataModel = dataModel
-       // cell.isFavorite = presenter.listViewItemWillShowFavoriteStatus(id: dataModel.id!, itemType: dataModel.type!)
-       // cell.delegate = self
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        self.presenter?.listItemDidSelect()
     }
     
     
@@ -80,6 +82,12 @@ extension ListViewController: UITableViewDelegate {
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listViewModels.count
+        return listViewModels?.count ?? 0
+    }
+}
+
+extension ListViewController: ListInputProtocol {
+    func updateView(with: [ListViewModel]) {
+        self.listViewModels = with
     }
 }
