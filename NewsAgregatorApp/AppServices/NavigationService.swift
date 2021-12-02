@@ -20,7 +20,7 @@ class NavigationService: NavigationServiceProtocol {
     }
         
     func goToArticlesList() {
-        let articlesListVC = ArticleListViewController()
+        let articlesListVC = ListViewController(presentationStyle: .overFullScreen)
         self.present(articlesListVC, animated: true)
     }
     

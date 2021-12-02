@@ -17,7 +17,7 @@ class RootPresenter: RootOutputProtocol {
     
     private weak var view: RootInputProtocol?
     
-    init(view: RootViewController, navService: NavigationServiceProtocol) {
+    init(view: RootInputProtocol, navService: NavigationServiceProtocol) {
         self.view = view
         self.navigationService = navService
     }

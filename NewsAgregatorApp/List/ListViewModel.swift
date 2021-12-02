@@ -1,0 +1,18 @@
+//
+//  ListViewModel.swift
+//  NewsAgregatorApp
+//
+//  Created by Лилия Левина on 01.12.2021.
+//
+
+import Foundation
+import UIKit
+
+struct ListViewModel {
+    var image: UIImage? = UIImage(named: "default_list_image")
+    var title: NSAttributedString
+    var subTitle: NSAttributedString
+    var description: NSAttributedString
+    var hasBeenReadImage: UIImage? = UIImage(named: "read_mark")
+    var hasBeenRead: Bool = true
+}
