@@ -19,6 +19,7 @@ enum ListModuleAssembly {
         let interactor = ListInteractor()
         let router = ListRouter()
         let presenter = ListPresenter(view: view, interactor: interactor, router: router)
+        interactor.presenter = presenter
         view.presenter = presenter
         router.viewController = view
     }

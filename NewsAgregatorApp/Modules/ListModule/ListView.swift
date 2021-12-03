@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol ListOutputProtocol: NSObject {
+protocol ListModuleViewOutput: NSObject {
     func viewDidLoad()
     func listItemDidSelect()
 }
 
 class ListViewController: UIViewController {
 
-    var presenter: ListOutputProtocol?
+    var presenter: ListModuleViewOutput?
     
     fileprivate var tableView: UITableView!
     
@@ -86,7 +86,7 @@ extension ListViewController: UITableViewDataSource {
     }
 }
 
-extension ListViewController: ListInputProtocol {
+extension ListViewController: ListModuleViewInput {
     func updateView(with: [ListViewModel]) {
         self.listViewModels = with
     }

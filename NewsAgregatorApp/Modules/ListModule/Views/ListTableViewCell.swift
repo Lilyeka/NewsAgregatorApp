@@ -52,7 +52,6 @@ class ListTableViewCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.clipsToBounds = true
         view.backgroundColor = .yellow
         return view
     }()

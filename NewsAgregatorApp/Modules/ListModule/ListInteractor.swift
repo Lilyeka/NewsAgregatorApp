@@ -7,13 +7,26 @@
 
 import UIKit
 
-protocol ListInteractorProtocol: NSObject {
-    func getListModels() -> [ListViewModel]
+protocol ListModuleInteractorInput: NSObject {
+    func getListModels()
 }
 
-class ListInteractor: NSObject, ListInteractorProtocol {
+protocol ListModuleInteractorOutput: NSObject {
+    func listItemsRecieved(_ listItems: [ListViewModel])
+}
+
+class ListInteractor: NSObject, ListModuleInteractorInput {
+
+    weak var presenter: ListModuleInteractorOutput?
     
-    func getListModels() -> [ListViewModel] {
+    let articleService = ArticlesService(networkManager: NetworkManager())
+    
+    
+    func getListModels() {
+        articleService.getArticles(from: "ru") { articles, error in
+            print(articles)
+        }
+
         var listViewModels: [ListViewModel] = [
             ListViewModel(
                 image: UIImage(named: "default_list_image"),
@@ -24,6 +37,6 @@ class ListInteractor: NSObject, ListInteractorProtocol {
                 url: "https://www.google.com/"
             )
         ]
-        return listViewModels
+        self.presenter?.listItemsRecieved(listViewModels)
     }
 }

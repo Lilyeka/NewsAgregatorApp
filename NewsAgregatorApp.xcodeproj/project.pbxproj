@@ -12,6 +12,14 @@
 		6115F49E2758DE76002EC3CA /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F49D2758DE76002EC3CA /* ListInteractor.swift */; };
 		6115F4A02758E4AB002EC3CA /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */; };
 		6115F4A22758EB95002EC3CA /* ListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4A12758EB95002EC3CA /* ListAssembly.swift */; };
+		6115F4A627596C6F002EC3CA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4A527596C6F002EC3CA /* NetworkManager.swift */; };
+		6115F4A9275A05CD002EC3CA /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4A8275A05CD002EC3CA /* NetworkErrors.swift */; };
+		6115F4AB275A0625002EC3CA /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4AA275A0625002EC3CA /* EndpointProtocol.swift */; };
+		6115F4AD275A08B9002EC3CA /* EndpointCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4AC275A08B9002EC3CA /* EndpointCases.swift */; };
+		6115F4AF275A09EA002EC3CA /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4AE275A09EA002EC3CA /* Endpoint.swift */; };
+		6115F4B3275A0DCF002EC3CA /* ArticlesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */; };
+		6115F4B5275A0FFA002EC3CA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B4275A0FFA002EC3CA /* Constants.swift */; };
+		6115F4B7275A1505002EC3CA /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B6275A1505002EC3CA /* Article.swift */; };
 		613A6F5C27578B670034E69A /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A6F5B27578B670034E69A /* UITableViewCell+Extension.swift */; };
 		613A6F5E27578C6A0034E69A /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A6F5D27578C6A0034E69A /* ListViewModel.swift */; };
 		615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */; };
@@ -32,6 +40,14 @@
 		6115F49D2758DE76002EC3CA /* ListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractor.swift; sourceTree = "<group>"; };
 		6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		6115F4A12758EB95002EC3CA /* ListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAssembly.swift; sourceTree = "<group>"; };
+		6115F4A527596C6F002EC3CA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6115F4A8275A05CD002EC3CA /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
+		6115F4AA275A0625002EC3CA /* EndpointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
+		6115F4AC275A08B9002EC3CA /* EndpointCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointCases.swift; sourceTree = "<group>"; };
+		6115F4AE275A09EA002EC3CA /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesService.swift; sourceTree = "<group>"; };
+		6115F4B4275A0FFA002EC3CA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6115F4B6275A1505002EC3CA /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		613A6F5B27578B670034E69A /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		613A6F5D27578C6A0034E69A /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationServiceContainer.swift; sourceTree = "<group>"; };
@@ -75,6 +91,36 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		6115F4A7275A05B8002EC3CA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6115F4B4275A0FFA002EC3CA /* Constants.swift */,
+				6115F4A8275A05CD002EC3CA /* NetworkErrors.swift */,
+				6115F4AC275A08B9002EC3CA /* EndpointCases.swift */,
+				6115F4AE275A09EA002EC3CA /* Endpoint.swift */,
+				6115F4B6275A1505002EC3CA /* Article.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6115F4B0275A0D06002EC3CA /* WebViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */,
+			);
+			path = WebViewModule;
+			sourceTree = "<group>";
+		};
+		6115F4B1275A0D34002EC3CA /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				61BD7B5E2756BB0C00222377 /* ListModule */,
+				61BD7B5F2756C2A600222377 /* Root */,
+				6115F4B0275A0D06002EC3CA /* WebViewModule */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		613A6F5927578B3A0034E69A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +132,8 @@
 		613A6F5A27578B450034E69A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6115F4AA275A0625002EC3CA /* EndpointProtocol.swift */,
+				6115F4A7275A05B8002EC3CA /* Models */,
 				613A6F5927578B3A0034E69A /* Extensions */,
 			);
 			path = Common;
@@ -110,16 +158,14 @@
 		61BD7A1027569AAB00222377 /* NewsAgregatorApp */ = {
 			isa = PBXGroup;
 			children = (
-				613A6F5A27578B450034E69A /* Common */,
 				61BD7A1127569AAB00222377 /* AppDelegate.swift */,
 				61BD7A1327569AAB00222377 /* SceneDelegate.swift */,
-				6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */,
-				61BD7B662756C84200222377 /* AppServices */,
 				61BD7B602756C2C600222377 /* Services */,
-				61BD7B5F2756C2A600222377 /* Root */,
-				61BD7B5E2756BB0C00222377 /* ListModule */,
-				61BD7A1A27569AAC00222377 /* Assets.xcassets */,
+				61BD7B662756C84200222377 /* AppServices */,
+				613A6F5A27578B450034E69A /* Common */,
+				6115F4B1275A0D34002EC3CA /* Modules */,
 				61BD7A1C27569AAC00222377 /* LaunchScreen.storyboard */,
+				61BD7A1A27569AAC00222377 /* Assets.xcassets */,
 				61BD7A1F27569AAC00222377 /* Info.plist */,
 			);
 			path = NewsAgregatorApp;
@@ -128,13 +174,13 @@
 		61BD7B5E2756BB0C00222377 /* ListModule */ = {
 			isa = PBXGroup;
 			children = (
-				6115F4A427596422002EC3CA /* Models */,
-				6115F4A327596402002EC3CA /* Views */,
-				615EF65A2756CE4F007958C6 /* ListView.swift */,
 				6115F4A12758EB95002EC3CA /* ListAssembly.swift */,
-				6115F49B2758D586002EC3CA /* ListRouter.swift */,
+				615EF65A2756CE4F007958C6 /* ListView.swift */,
 				6115F4992758D3F0002EC3CA /* ListPresenter.swift */,
 				6115F49D2758DE76002EC3CA /* ListInteractor.swift */,
+				6115F49B2758D586002EC3CA /* ListRouter.swift */,
+				6115F4A427596422002EC3CA /* Models */,
+				6115F4A327596402002EC3CA /* Views */,
 			);
 			path = ListModule;
 			sourceTree = "<group>";
@@ -151,6 +197,8 @@
 		61BD7B602756C2C600222377 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6115F4A527596C6F002EC3CA /* NetworkManager.swift */,
+				6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -235,15 +283,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				6115F4A02758E4AB002EC3CA /* WebViewViewController.swift in Sources */,
+				6115F4B5275A0FFA002EC3CA /* Constants.swift in Sources */,
+				6115F4B7275A1505002EC3CA /* Article.swift in Sources */,
 				6115F49C2758D586002EC3CA /* ListRouter.swift in Sources */,
 				6115F4A22758EB95002EC3CA /* ListAssembly.swift in Sources */,
 				6115F49E2758DE76002EC3CA /* ListInteractor.swift in Sources */,
+				6115F4A627596C6F002EC3CA /* NetworkManager.swift in Sources */,
 				613A6F5E27578C6A0034E69A /* ListViewModel.swift in Sources */,
+				6115F4A9275A05CD002EC3CA /* NetworkErrors.swift in Sources */,
 				61BD7B652756C41700222377 /* NavigationService.swift in Sources */,
 				61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */,
 				61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */,
+				6115F4AB275A0625002EC3CA /* EndpointProtocol.swift in Sources */,
 				615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */,
+				6115F4AD275A08B9002EC3CA /* EndpointCases.swift in Sources */,
 				613A6F5C27578B670034E69A /* UITableViewCell+Extension.swift in Sources */,
+				6115F4AF275A09EA002EC3CA /* Endpoint.swift in Sources */,
+				6115F4B3275A0DCF002EC3CA /* ArticlesService.swift in Sources */,
 				615EF65F2757822A007958C6 /* ListTableViewCell.swift in Sources */,
 				61BD7A1427569AAB00222377 /* SceneDelegate.swift in Sources */,
 				6115F49A2758D3F0002EC3CA /* ListPresenter.swift in Sources */,
