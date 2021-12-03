@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ListTableViewCell: UITableViewCell {
     
@@ -14,7 +15,9 @@ class ListTableViewCell: UITableViewCell {
             guard let viewModel = viewModel else {
                 return
             }
-            self.listImageView.image = viewModel.image
+            if let imgUrl = URL(string: viewModel.imageUrlString) {
+                self.listImageView.kf.setImage(with: imgUrl)
+            }
             self.titleLabel.attributedText = viewModel.title
             self.subTitleLabel.attributedText = viewModel.subTitle
             self.descriptionLabel.attributedText = viewModel.description

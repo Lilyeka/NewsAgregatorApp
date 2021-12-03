@@ -12,7 +12,7 @@ protocol ListRouterProtocol {
     func goToListDetailModule()
 }
 
-class ListRouter: ListRouterProtocol {
+class ListModuleRouter: ListRouterProtocol {
     weak var viewController: ListViewController?
 
     func goToListDetailModule() {

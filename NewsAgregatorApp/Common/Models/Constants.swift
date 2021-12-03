@@ -8,5 +8,5 @@
 import Foundation
 
 enum Constants {
-    static let apiKey = "087de7644b8849b0a996d0271bf15814"
+    static let newsApiOrgKey = "087de7644b8849b0a996d0271bf15814"
 }

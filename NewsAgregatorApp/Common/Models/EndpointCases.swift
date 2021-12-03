@@ -7,43 +7,14 @@
 
 import Foundation
 
-enum EndpointCases: EndpointProtocol {
-    case getArticlesFromNewsApi(country: String, apiKey: String)
-    
-    var httpMethod: String {
-        switch self {
-        case .getArticlesFromNewsApi:
-            return "GET"
-        }
+enum EndpointCases {
+    static func newsApiEndpoint(country: String, apiKey: String) -> EndpointProtocol {
+        return Endpoint(httpMethod: "GET",
+                        baseURLString: "https://newsapi.org/v2",
+                        path: "/top-headlines",
+                        headers: [:], //["country": country,
+                                 // "apiKey": apiKey],
+                        body: [:])
     }
     
-    var baseURLString: String {
-        switch self {
-        case .getArticlesFromNewsApi:
-            return "https://newsapi.org/"
-        }
-    }
-    
-    var path: String {
-        switch self {
-        case .getArticlesFromNewsApi:
-            return "v2/top-headlines"
-        }
-    }
-    
-    var headers: [String: Any]? {
-        switch self {
-        case .getArticlesFromNewsApi(let country, let apiKey):
-            return ["country": country,
-                    "apiKey": apiKey
-                    ]
-        }
-    }
-    
-    var body: [String : Any]? {
-        switch self {
-        case .getArticlesFromNewsApi:
-            return [:]
-        }
-    }
 }

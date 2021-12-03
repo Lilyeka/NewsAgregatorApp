@@ -27,6 +27,7 @@ public class NetworkManager: NetworkingProtocol {
             completion(.failure(NetworkErrors.requestCreation))
             return
         }
+      
         
         session.dataTask(with: request) { data, response, error in
             let result: Result<Data, NetworkErrors>

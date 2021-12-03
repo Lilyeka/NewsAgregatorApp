@@ -11,8 +11,7 @@ protocol ListModuleViewInput: NSObject {
     func updateView(with: [ListViewModel])
 }
 
-class ListPresenter:  NSObject, ListModuleViewOutput {
-    
+class ListModulePresenter:  NSObject, ListModuleViewOutput {
     private weak var view: ListModuleViewInput?
     var router: ListRouterProtocol
     var interactor: ListModuleInteractorInput
@@ -31,7 +30,8 @@ class ListPresenter:  NSObject, ListModuleViewOutput {
         self.interactor.getListModels()
     }
 }
-extension ListPresenter: ListModuleInteractorOutput {
+
+extension ListModulePresenter: ListModuleInteractorOutput {
     func listItemsRecieved(_ listItems: [ListViewModel]) {
         self.view?.updateView(with: listItems)
     }

@@ -16,9 +16,9 @@ enum ListModuleAssembly {
     }
     
     private static func injectProperties(in view: ListViewController) {
-        let interactor = ListInteractor()
-        let router = ListRouter()
-        let presenter = ListPresenter(view: view, interactor: interactor, router: router)
+        let interactor = ListModuleInteractor()
+        let router = ListModuleRouter()
+        let presenter = ListModulePresenter(view: view, interactor: interactor, router: router)
         interactor.presenter = presenter
         view.presenter = presenter
         router.viewController = view

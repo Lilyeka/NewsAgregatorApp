@@ -36,7 +36,6 @@ class ListViewController: UIViewController {
         self.setupUI()
         self.setupLayout()
         self.presenter?.viewDidLoad()
-        
     }
     
     func setupUI() {
@@ -76,8 +75,6 @@ extension ListViewController: UITableViewDelegate {
     {
         self.presenter?.listItemDidSelect()
     }
-    
-    
 }
 
 extension ListViewController: UITableViewDataSource {
@@ -89,5 +86,6 @@ extension ListViewController: UITableViewDataSource {
 extension ListViewController: ListModuleViewInput {
     func updateView(with: [ListViewModel]) {
         self.listViewModels = with
+        tableView.reloadData()
     }
 }
