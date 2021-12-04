@@ -36,7 +36,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     let listViewModelBuilder = ListViewModelBuilder()
     
     func getListModels() {        
-       // let url = URL(string: "https://lenta.ru/rss")
+        //let url = URL(string: "https://lenta.ru/rss")
         let url = URL(string: "https://www.gazeta.ru/export/rss/lenta.xml")
         let task = URLSession.shared.dataTask(with: url!) { data, response, error in
             guard let data = data, error == nil else {

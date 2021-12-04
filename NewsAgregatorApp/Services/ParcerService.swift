@@ -40,16 +40,18 @@ class ParserSevice: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         let parsString = string.trimmingCharacters(in: .whitespacesAndNewlines)
-        if xmlDict[currentElement] == nil {
-            if !parsString.isEmpty {
-                xmlDict.updateValue(string, forKey: currentElement)
-            }
+        if !parsString.isEmpty {
+            currentElementText += parsString
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             xmlDictArr.append(xmlDict)
+        } else {
+            if xmlDict[currentElement] == nil {
+                xmlDict.updateValue(currentElementText, forKey: currentElement)
+            }
         }
     }
     
@@ -62,7 +64,7 @@ class ParserSevice: NSObject, XMLParserDelegate {
             self.articles = self.xmlDictArr.map { Article(details: $0) }
             self.parseCompletion?(self.articles)
         }
-            
+        
     }
 }
 
