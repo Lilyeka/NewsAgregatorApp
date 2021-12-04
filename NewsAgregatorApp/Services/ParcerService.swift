@@ -11,6 +11,7 @@ class ParserSevice: NSObject, XMLParserDelegate {
     var xmlDict = [String: Any]()
     var xmlDictArr = [[String: Any]]()
     var currentElement = ""
+    var currentElementText = ""
     var currentAttributeDict: [String : String] = [:]
     var articles: Array<Article> = [Article]()
     var parseCompletion: (([Article]) -> Void)?
@@ -26,18 +27,22 @@ class ParserSevice: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "item" {
             xmlDict = [:]
+            currentElementText = ""
         } else {
             currentElement = elementName
             currentAttributeDict = attributeDict
+            currentElementText = ""
+            if !currentAttributeDict.isEmpty{
+                xmlDict.updateValue(currentAttributeDict, forKey: currentElement)
+            }
         }
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
+        let parsString = string.trimmingCharacters(in: .whitespacesAndNewlines)
         if xmlDict[currentElement] == nil {
-            if !string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            if !parsString.isEmpty {
                 xmlDict.updateValue(string, forKey: currentElement)
-            } else if !currentAttributeDict.isEmpty{
-                xmlDict.updateValue(currentAttributeDict, forKey: currentElement)
             }
         }
     }
