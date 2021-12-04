@@ -7,15 +7,18 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 protocol ListRouterProtocol {
-    func goToListDetailModule()
+    func openURL(url: URL)
 }
 
 class ListModuleRouter: ListRouterProtocol {
     weak var viewController: ListViewController?
 
-    func goToListDetailModule() {
-        self.viewController?.navigationController?.pushViewController(WebViewViewController(), animated: true)
+    func openURL(url: URL) {
+        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        self.viewController?.present(vc, animated: true)
     }
 }
+

@@ -9,7 +9,7 @@ import UIKit
 
 protocol ListModuleViewOutput: NSObject {
     func viewDidLoad()
-    func listItemDidSelect()
+    func listItemDidSelect(itemUrl: URL)
 }
 
 class ListViewController: UIViewController {
@@ -73,7 +73,9 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        self.presenter?.listItemDidSelect()
+        guard let viewModel = listViewModels?[indexPath.row],
+              let url = URL(string: viewModel.url) else { return }
+        self.presenter?.listItemDidSelect(itemUrl: url)
     }
 }
 

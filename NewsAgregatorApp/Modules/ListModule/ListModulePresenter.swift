@@ -22,8 +22,8 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput {
         self.router = router
     }
     
-    func listItemDidSelect() {
-        self.router.goToListDetailModule()
+    func listItemDidSelect(itemUrl: URL) {
+        self.router.openURL(url: itemUrl)
     }
     
     func viewDidLoad() {
