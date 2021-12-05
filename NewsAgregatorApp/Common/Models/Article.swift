@@ -8,30 +8,43 @@
 import Foundation
 
 struct Articles: Decodable {
+    let status: String
+    let totalResults: Int
     let articles: [Article]
 }
 
 struct Article: Decodable {
-    let source: ArticleSource
+    var source: ArticleSource
     let title: String
     let description: String
     let url: String
     let urlToImage: String
     let publishedAt: String
     
-    init(details: [String: Any]) {
-        self.source = ArticleSource(id: "?", name: "???") // TODO - сделать правильно
+//    init(from decoder: Decoder) throws {
+//        self.source = ArticleSource(id: "?", name: "???") // TODO - сделать правильно
+//        self.urlToImage = ""
+//        self.title = ""
+//        self.description = ""
+//        self.url = ""
+//        self.publishedAt = ""
+//    }
+    
+    static func getArticle(details: [String: Any]) -> Article {
+        let source = ArticleSource(id: "?", name: "???") // TODO - сделать правильно
         let urlToImageDict = details["enclosure"] as? [String:String] ?? ["":""]
-        self.urlToImage = urlToImageDict["url"] ?? ""
+        let urlToImage = urlToImageDict["url"] ?? ""
         
-        self.title = details["title"] as? String ?? ""
-        self.description = details["description"] as? String ?? ""
-        self.url = details["link"] as? String ?? ""
-        self.publishedAt = details["pubDate"] as? String ?? ""
+        let title = details["title"] as? String ?? ""
+        let description = details["description"] as? String ?? ""
+        let url = details["link"] as? String ?? ""
+        let publishedAt = details["pubDate"] as? String ?? ""
+        
+        return Article(source: source, title: title, description: description, url: url, urlToImage: urlToImage, publishedAt: publishedAt)
     }
 }
 
 struct ArticleSource: Decodable {
-    let id: String
+    let id: String?
     let name: String
 }

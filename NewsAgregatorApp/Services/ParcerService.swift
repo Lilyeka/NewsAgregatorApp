@@ -61,7 +61,7 @@ class ParserSevice: NSObject, XMLParserDelegate {
     
     func parsingCompleted() {
         DispatchQueue.global().async {
-            self.articles = self.xmlDictArr.map { Article(details: $0) }
+            self.articles = self.xmlDictArr.map { Article.getArticle(details: $0) }
             self.parseCompletion?(self.articles)
         }
         

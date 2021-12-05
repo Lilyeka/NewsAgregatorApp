@@ -16,11 +16,11 @@ protocol ListModuleInteractorOutput: NSObject {
 }
 
 class ListModuleInteractor: NSObject, ListModuleInteractorInput {
-
+    
     weak var presenter: ListModuleInteractorOutput?
     
     let articleService = ArticlesService(networkManager: NetworkManager())
-
+    
     var listViewModels: [ListViewModel] = [
         ListViewModel(
             imageUrlString: "",
@@ -34,25 +34,41 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     let parserService = ParserSevice()
     let listViewModelBuilder = ListViewModelBuilder()
+    // ------------ XML ----------------
+//        func getListModels() {
+//            //let url = URL(string: "https://lenta.ru/rss")
+//            let url = URL(string: "https://www.gazeta.ru/export/rss/lenta.xml")
+//            let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+//                guard let data = data, error == nil else {
+//                    print(error ?? "Unknown error")
+//                    return
+//                }
+//
+//                self.parserService.parceData(data: data) { [weak self] articles in
+//                    guard let strongSelf = self else { return }
+//                    strongSelf.listViewModels = articles.map { strongSelf.listViewModelBuilder.getViewModel(from: $0)
+//                    }
+//                    DispatchQueue.main.async {
+//                        strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
+//                    }
+//                }
+//            }
+//            task.resume()
+//        }
     
-    func getListModels() {        
-        //let url = URL(string: "https://lenta.ru/rss")
-        let url = URL(string: "https://www.gazeta.ru/export/rss/lenta.xml")
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error ?? "Unknown error")
-                return
-            }
+    func getListModels() {
+        articleService.getArticles(from: "ru") { [weak self] articles, error in
+            guard let strongSelf = self else { return }
 
-            self.parserService.parceData(data: data) { [weak self] articles in
-                guard let strongSelf = self else { return }
-                strongSelf.listViewModels = articles.map { strongSelf.listViewModelBuilder.getViewModel(from: $0)
-                }
-                DispatchQueue.main.async {
-                    strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
-                }
+            var listViewModels = articles?.articles.map({ article in
+                strongSelf.listViewModelBuilder.getViewModel(from: article)
+            })
+
+            strongSelf.listViewModels = listViewModels ?? [ListViewModel]()
+
+            DispatchQueue.main.async {
+                strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
             }
         }
-        task.resume()
     }
 }
