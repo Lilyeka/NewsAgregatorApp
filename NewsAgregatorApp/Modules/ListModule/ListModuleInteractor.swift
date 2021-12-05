@@ -21,34 +21,22 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     //TODO - сделать ListModuleInteractorAssembly c функцией create() и в ней инитить интерактор со всеми его зависимостями
     let listViewModelBuilder = ListViewModelBuilder()
     let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager(), xmlParser: XMLParserSevice(), jsonParser: JSONDecoder())
-    
-    var listViewModels: [ListViewModel] = [
-        ListViewModel(
-            imageUrlString: "",
-            title: NSAttributedString(string: "Заголовок новости 1 Заголовок новости 1Заголовок новости 1Заголовок новости 1"),
-            subTitle: NSAttributedString(string: "Источник новости 1Источник новости 1Источник новости 1Источник новости 1Источник новости 1Источник новости 1"),
-            description: NSAttributedString(string: "Описание новости 1 Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1Описание новости 1"),
-            hasBeenReadImage: UIImage(named: "read_mark"),
-            url: "https://www.google.com/"
-        )
-    ]
+    //TODO - сделать получение endpoints из модели настроек приложения
+    let endpoint1 = EndpointCases.lentaApiEndpoint()
+    let endpoint2 = EndpointCases.gazetaApiEndpoint()
+    let endpoint3 = EndpointCases.newsApiEndpoint(country: "ru", apiKey: Constants.newsApiOrgKey)
     
     func getListModels() {
-        let endpoint1 = EndpointCases.lentaApiEndpoint()
-        let endpoint2 = EndpointCases.gazetaApiEndpoint()
-        let endpoint3 = EndpointCases.newsApiEndpoint(country: "ru", apiKey: Constants.newsApiOrgKey)
-
         articleService.getArticles(endpoints: [endpoint1, endpoint2, endpoint3]) { [weak self] articles, error in
             guard let strongSelf = self else { return }
 
-            var listViewModels = articles?.articles.map({ article in
-                strongSelf.listViewModelBuilder.getViewModel(from: article)
-            })
+            let listViewModels = articles?.articles.map {
+                strongSelf.listViewModelBuilder.getViewModel(from: $0)
+            }
 
-            strongSelf.listViewModels = listViewModels ?? [ListViewModel]()
-
+            guard let listViewModels = listViewModels else { return }
             DispatchQueue.main.async {
-                strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
+                strongSelf.presenter?.listItemsRecieved(listViewModels)
             }
         }
     }
