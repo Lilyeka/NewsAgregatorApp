@@ -11,7 +11,7 @@
 		6115F49A2758D3F0002EC3CA /* ListModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4992758D3F0002EC3CA /* ListModulePresenter.swift */; };
 		6115F49C2758D586002EC3CA /* ListModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F49B2758D586002EC3CA /* ListModuleRouter.swift */; };
 		6115F49E2758DE76002EC3CA /* ListModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F49D2758DE76002EC3CA /* ListModuleInteractor.swift */; };
-		6115F4A02758E4AB002EC3CA /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */; };
+		6115F4A02758E4AB002EC3CA /* SettingsModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F49F2758E4AB002EC3CA /* SettingsModuleView.swift */; };
 		6115F4A22758EB95002EC3CA /* ListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4A12758EB95002EC3CA /* ListModuleAssembly.swift */; };
 		6115F4A627596C6F002EC3CA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4A527596C6F002EC3CA /* NetworkManager.swift */; };
 		6115F4A9275A05CD002EC3CA /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4A8275A05CD002EC3CA /* NetworkErrors.swift */; };
@@ -28,6 +28,10 @@
 		615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */; };
 		615EF65B2756CE4F007958C6 /* ListModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF65A2756CE4F007958C6 /* ListModuleView.swift */; };
 		615EF65F2757822A007958C6 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF65E2757822A007958C6 /* ListTableViewCell.swift */; };
+		6199BBDB275CE0140010ACE4 /* SettingsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBDA275CE0140010ACE4 /* SettingsModuleAssembly.swift */; };
+		6199BBDD275CE16D0010ACE4 /* TabBarModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBDC275CE16D0010ACE4 /* TabBarModuleView.swift */; };
+		6199BBDF275CE1A20010ACE4 /* TabBarModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBDE275CE1A20010ACE4 /* TabBarModuleAssembly.swift */; };
+		6199BBE1275CE3680010ACE4 /* TabBarModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBE0275CE3680010ACE4 /* TabBarModuleRouter.swift */; };
 		61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1127569AAB00222377 /* AppDelegate.swift */; };
 		61BD7A1427569AAB00222377 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1327569AAB00222377 /* SceneDelegate.swift */; };
 		61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1527569AAB00222377 /* RootViewController.swift */; };
@@ -42,7 +46,7 @@
 		6115F4992758D3F0002EC3CA /* ListModulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModulePresenter.swift; sourceTree = "<group>"; };
 		6115F49B2758D586002EC3CA /* ListModuleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleRouter.swift; sourceTree = "<group>"; };
 		6115F49D2758DE76002EC3CA /* ListModuleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleInteractor.swift; sourceTree = "<group>"; };
-		6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		6115F49F2758E4AB002EC3CA /* SettingsModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleView.swift; sourceTree = "<group>"; };
 		6115F4A12758EB95002EC3CA /* ListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleAssembly.swift; sourceTree = "<group>"; };
 		6115F4A527596C6F002EC3CA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6115F4A8275A05CD002EC3CA /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
@@ -59,6 +63,10 @@
 		615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationServiceContainer.swift; sourceTree = "<group>"; };
 		615EF65A2756CE4F007958C6 /* ListModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleView.swift; sourceTree = "<group>"; };
 		615EF65E2757822A007958C6 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		6199BBDA275CE0140010ACE4 /* SettingsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleAssembly.swift; sourceTree = "<group>"; };
+		6199BBDC275CE16D0010ACE4 /* TabBarModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleView.swift; sourceTree = "<group>"; };
+		6199BBDE275CE1A20010ACE4 /* TabBarModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleAssembly.swift; sourceTree = "<group>"; };
+		6199BBE0275CE3680010ACE4 /* TabBarModuleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleRouter.swift; sourceTree = "<group>"; };
 		61BD7A0E27569AAB00222377 /* NewsAgregatorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsAgregatorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BD7A1127569AAB00222377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61BD7A1327569AAB00222377 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,20 +128,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		6115F4B0275A0D06002EC3CA /* WebViewModule */ = {
+		6115F4B0275A0D06002EC3CA /* SettingsModule */ = {
 			isa = PBXGroup;
 			children = (
-				6115F49F2758E4AB002EC3CA /* WebViewViewController.swift */,
+				6115F49F2758E4AB002EC3CA /* SettingsModuleView.swift */,
+				6199BBDA275CE0140010ACE4 /* SettingsModuleAssembly.swift */,
 			);
-			path = WebViewModule;
+			path = SettingsModule;
 			sourceTree = "<group>";
 		};
 		6115F4B1275A0D34002EC3CA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				6199BBD9275CDDEF0010ACE4 /* TabBarModule */,
 				61BD7B5E2756BB0C00222377 /* ListModule */,
 				61BD7B5F2756C2A600222377 /* Root */,
-				6115F4B0275A0D06002EC3CA /* WebViewModule */,
+				6115F4B0275A0D06002EC3CA /* SettingsModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -154,6 +164,16 @@
 				613A6F5927578B3A0034E69A /* Extensions */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		6199BBD9275CDDEF0010ACE4 /* TabBarModule */ = {
+			isa = PBXGroup;
+			children = (
+				6199BBDC275CE16D0010ACE4 /* TabBarModuleView.swift */,
+				6199BBDE275CE1A20010ACE4 /* TabBarModuleAssembly.swift */,
+				6199BBE0275CE3680010ACE4 /* TabBarModuleRouter.swift */,
+			);
+			path = TabBarModule;
 			sourceTree = "<group>";
 		};
 		61BD7A0527569AAB00222377 = {
@@ -239,7 +259,6 @@
 				C1ECA80E99D19BEC8B788AD7 /* Pods-NewsAgregatorApp.debug.xcconfig */,
 				F5781ADE890895B6D5654BC5 /* Pods-NewsAgregatorApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -357,17 +376,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6115F4A02758E4AB002EC3CA /* WebViewViewController.swift in Sources */,
+				6115F4A02758E4AB002EC3CA /* SettingsModuleView.swift in Sources */,
 				6115F4B5275A0FFA002EC3CA /* Constants.swift in Sources */,
 				6115F4B7275A1505002EC3CA /* Article.swift in Sources */,
 				6115F49C2758D586002EC3CA /* ListModuleRouter.swift in Sources */,
+				6199BBDD275CE16D0010ACE4 /* TabBarModuleView.swift in Sources */,
 				6115F4B9275A936E002EC3CA /* ParcerService.swift in Sources */,
 				6115F4A22758EB95002EC3CA /* ListModuleAssembly.swift in Sources */,
+				6199BBDF275CE1A20010ACE4 /* TabBarModuleAssembly.swift in Sources */,
+				6199BBDB275CE0140010ACE4 /* SettingsModuleAssembly.swift in Sources */,
 				6115F49E2758DE76002EC3CA /* ListModuleInteractor.swift in Sources */,
 				6115F4A627596C6F002EC3CA /* NetworkManager.swift in Sources */,
 				613A6F5E27578C6A0034E69A /* ListViewModel.swift in Sources */,
 				6115F4A9275A05CD002EC3CA /* NetworkErrors.swift in Sources */,
 				61BD7B652756C41700222377 /* NavigationService.swift in Sources */,
+				6199BBE1275CE3680010ACE4 /* TabBarModuleRouter.swift in Sources */,
 				61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */,
 				61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */,
 				6115F4AB275A0625002EC3CA /* EndpointProtocol.swift in Sources */,

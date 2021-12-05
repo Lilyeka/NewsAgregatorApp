@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NavigationServiceProtocol {
-    func goToArticlesList()
+    func goToMainTabBar()
 }
 
 class NavigationService: NavigationServiceProtocol {
@@ -19,10 +19,12 @@ class NavigationService: NavigationServiceProtocol {
         self.rootController = rootController
     }
         
-    func goToArticlesList() {
+    func goToMainTabBar() {
+        //TODO - обёртку в навигейшн контроллер перенести в ассембли (а в ассембли использовать фабрику/декоратор)
         let listModule = UINavigationController(rootViewController: ListModuleAssembly.create())
-        listModule.modalPresentationStyle = .overFullScreen
-        self.present(listModule, animated: true)
+        let settingsModule = UINavigationController(rootViewController: SettingsModuleAssembly.create())
+        let tabBarModule = TabBarModuleAssembly.create(subModules: (list: listModule, settings: settingsModule), presentationStyle: .overFullScreen)
+        self.present(tabBarModule, animated: true)
     }
     
     private func present(_ controller: UIViewController, animated: Bool) {

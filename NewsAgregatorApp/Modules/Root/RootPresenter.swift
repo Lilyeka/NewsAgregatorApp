@@ -23,7 +23,7 @@ class RootPresenter: RootOutputProtocol {
     }
     
     func viewDidAppear() {
-        self.navigationService.goToArticlesList()
+        self.navigationService.goToMainTabBar()
     }
     
 }
