@@ -21,17 +21,8 @@ struct Article: Decodable {
     let urlToImage: String
     let publishedAt: String
     
-//    init(from decoder: Decoder) throws {
-//        self.source = ArticleSource(id: "?", name: "???") // TODO - сделать правильно
-//        self.urlToImage = ""
-//        self.title = ""
-//        self.description = ""
-//        self.url = ""
-//        self.publishedAt = ""
-//    }
-    
     static func getArticle(details: [String: Any]) -> Article {
-        let source = ArticleSource(id: "?", name: "???") // TODO - сделать правильно
+        let source = ArticleSource(id: "?", name: "???")
         let urlToImageDict = details["enclosure"] as? [String:String] ?? ["":""]
         let urlToImage = urlToImageDict["url"] ?? ""
         

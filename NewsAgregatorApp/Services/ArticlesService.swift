@@ -16,9 +16,8 @@ class ArticlesService {
         self.networkManager = networkManager
     }
     
-    func getArticles(from country: String, completion: @escaping (Articles?, Error?) -> Void) {
-        let endpoint = EndpointCases.newsApiEndpoint(country: country, apiKey: Constants.newsApiOrgKey)
-        
+    func getArticles(endpoint: EndpointProtocol, completion: @escaping (Articles?, Error?) -> Void) {
+     
         networkManager.request(endpoint) { [weak self] result in
             switch result {
             case .success(let data):
@@ -33,13 +32,5 @@ class ArticlesService {
                 completion(nil, error)
             }
         }
-        
-        //        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=087de7644b8849b0a996d0271bf15814")!
-        //
-        //        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-        //            guard let data = data else { return }
-        //            print(String(data: data, encoding: .utf8)!)
-        //        }
-        //        task.resume()
     }
 }

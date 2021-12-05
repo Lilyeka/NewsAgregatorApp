@@ -38,6 +38,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
 //        func getListModels() {
 //            //let url = URL(string: "https://lenta.ru/rss")
 //            let url = URL(string: "https://www.gazeta.ru/export/rss/lenta.xml")
+//
 //            let task = URLSession.shared.dataTask(with: url!) { data, response, error in
 //                guard let data = data, error == nil else {
 //                    print(error ?? "Unknown error")
@@ -57,18 +58,43 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
 //        }
     
     func getListModels() {
-        articleService.getArticles(from: "ru") { [weak self] articles, error in
-            guard let strongSelf = self else { return }
+        let endpointLenta = EndpointCases.lentaApiEndpoint()
+        let endpointGazeta = EndpointCases.gazetaApiEndpoint()
+        
+        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error ?? "Unknown error")
+                return
+            }
 
-            var listViewModels = articles?.articles.map({ article in
-                strongSelf.listViewModelBuilder.getViewModel(from: article)
-            })
-
-            strongSelf.listViewModels = listViewModels ?? [ListViewModel]()
-
-            DispatchQueue.main.async {
-                strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
+            self.parserService.parceData(data: data) { [weak self] articles in
+                guard let strongSelf = self else { return }
+                strongSelf.listViewModels = articles.map { strongSelf.listViewModelBuilder.getViewModel(from: $0)
+                }
+                DispatchQueue.main.async {
+                    strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
+                }
             }
         }
+        task.resume()
     }
+    
+    
+//    func getListModels() {
+//        let endpoint = EndpointCases.newsApiEndpoint(country: "ru", apiKey: Constants.newsApiOrgKey)
+//
+//        articleService.getArticles(endpoint: endpoint) { [weak self] articles, error in
+//            guard let strongSelf = self else { return }
+//
+//            var listViewModels = articles?.articles.map({ article in
+//                strongSelf.listViewModelBuilder.getViewModel(from: article)
+//            })
+//
+//            strongSelf.listViewModels = listViewModels ?? [ListViewModel]()
+//
+//            DispatchQueue.main.async {
+//                strongSelf.presenter?.listItemsRecieved(strongSelf.listViewModels)
+//            }
+//        }
+//    }
 }

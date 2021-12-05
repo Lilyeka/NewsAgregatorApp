@@ -12,9 +12,23 @@ enum EndpointCases {
         return Endpoint(httpMethod: "GET",
                         baseURLString: "https://newsapi.org/v2",
                         path: "/top-headlines",
-                        headers: [:], //["country": country,
-                                 // "apiKey": apiKey],
-                        body: [:])
+                        urlQueryItems: [
+                            (name: "country", value: "ru"),
+                            (name: "apiKey", value: Constants.newsApiOrgKey)
+                        ])
     }
     
+    static func lentaApiEndpoint() -> EndpointProtocol {
+        return Endpoint(httpMethod: "GET",
+                        baseURLString: "https://lenta.ru",
+                        path: "/rss",
+                        urlQueryItems: nil)
+    }
+    
+    static func gazetaApiEndpoint() -> EndpointProtocol {
+        return Endpoint(httpMethod: "GET",
+                        baseURLString: "https://www.gazeta.ru",
+                        path: "/export/rss/lenta.xml",
+                        urlQueryItems: nil)
+    }
 }

@@ -11,6 +11,5 @@ struct Endpoint: EndpointProtocol {
     var httpMethod: String
     var baseURLString: String
     var path: String
-    var headers: [String : Any]?
-    var body: [String : Any]?
+    var urlQueryItems: [(name: String, value: String)]?
 }
