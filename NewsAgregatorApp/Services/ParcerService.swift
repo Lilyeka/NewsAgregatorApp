@@ -7,16 +7,20 @@
 
 import Foundation
 
-class ParserSevice: NSObject, XMLParserDelegate {
-    var xmlDict = [String: Any]()
-    var xmlDictArr = [[String: Any]]()
-    var currentElement = ""
-    var currentElementText = ""
-    var currentAttributeDict: [String : String] = [:]
-    var articles: Array<Article> = [Article]()
-    var parseCompletion: (([Article]) -> Void)?
+protocol XMLParserProtocol {
+    func parseData(data: Data, completion: @escaping(([Article]) -> Void))
+}
+
+class XMLParserSevice: NSObject, XMLParserProtocol {
+    private var parseCompletion: (([Article]) -> Void)?
+    private var xmlDict = [String: Any]()
+    private var xmlDictArr = [[String: Any]]()
+    private var currentElement = ""
+    private var currentElementText = ""
+    private var currentAttributeDict: [String : String] = [:]
+    private var articles: Array<Article> = [Article]()
     
-    func parceData(data: Data, completion: @escaping
+    func parseData(data: Data, completion: @escaping
                    (([Article]) -> Void)) {
         self.parseCompletion = completion
         let parser = XMLParser(data: data)
@@ -24,6 +28,15 @@ class ParserSevice: NSObject, XMLParserDelegate {
         parser.parse()
     }
     
+    private func parsingCompleted() {
+        DispatchQueue.global().async {
+            self.articles = self.xmlDictArr.map { Article.getArticle(details: $0) }
+            self.parseCompletion?(self.articles)
+        }
+    }
+}
+
+extension XMLParserSevice: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "item" {
             xmlDict = [:]
@@ -32,7 +45,7 @@ class ParserSevice: NSObject, XMLParserDelegate {
             currentElement = elementName
             currentAttributeDict = attributeDict
             currentElementText = ""
-            if !currentAttributeDict.isEmpty{
+            if !currentAttributeDict.isEmpty {
                 xmlDict.updateValue(currentAttributeDict, forKey: currentElement)
             }
         }
@@ -56,15 +69,7 @@ class ParserSevice: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        parsingCompleted()
-    }
-    
-    func parsingCompleted() {
-        DispatchQueue.global().async {
-            self.articles = self.xmlDictArr.map { Article.getArticle(details: $0) }
-            self.parseCompletion?(self.articles)
-        }
-        
+        self.parsingCompleted()
     }
 }
 

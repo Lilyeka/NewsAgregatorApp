@@ -7,13 +7,23 @@
 
 import UIKit
 
+enum ResponseDataTypes: String {
+    case xml
+    case json
+    
+    static func getCaseForString(string: String) -> ResponseDataTypes {
+        return string.contains("xml") ? .xml : .json
+    }
+}
+
 protocol NetworkingProtocol {
     func request(_ endPoint: EndpointProtocol, completion: @escaping
-                 ((Result<Data,NetworkErrors>) -> Void))
+                 ((Result<(Data,ResponseDataTypes),NetworkErrors>) -> Void))
 }
 
 public class NetworkManager: NetworkingProtocol {
     
+
     private let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
@@ -21,20 +31,24 @@ public class NetworkManager: NetworkingProtocol {
     }
     
     func request(_ endPoint: EndpointProtocol, completion: @escaping
-    ((Result<Data,NetworkErrors>) -> Void)) {
+    ((Result<(Data,ResponseDataTypes),NetworkErrors>) -> Void)) {
         
         guard let request = endPoint.urlRequest else {
             completion(.failure(NetworkErrors.requestCreation))
             return
         }
       
-        
         session.dataTask(with: request) { data, response, error in
-            let result: Result<Data, NetworkErrors>
+            var result: Result<(Data,ResponseDataTypes), NetworkErrors>
             if let error = error {
                 result = .failure(NetworkErrors.server(error))
             } else if let data = data {
-                result = .success(data)
+                if let mimeType = response?.mimeType {
+                    let dataType = ResponseDataTypes.getCaseForString(string: mimeType)
+                    result = .success((data,dataType))
+                } else {
+                    result = .failure(NetworkErrors.unknown)
+                }
             } else {
                 result = .failure(NetworkErrors.unknown)
             }
