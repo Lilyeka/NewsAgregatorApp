@@ -26,21 +26,20 @@ class SettingsService: SettingsServiceProtocol {
     
     func getSettingsInfo() {
         
-        let resourses: [(Resources, Bool)] = [
-            (.lenta, true),
-            (.gazeta, true),
-            (.newsapi, true)
+        let resourses: [ShowResources] = [
+            (resource: .lenta, isActive: true),
+            (resource: .gazeta, isActive: true),
+            (resource: .newsapi, isActive: true)
         ]
         
         self.currentSettings = SettingsModel(mode: .extentMode,
-                                             resourses :resourses
-        )
+                                             resourses :resourses)
     }
     
     func getEndpointsAndParsers() -> [(EndpointProtocol,ParserProtocol)]? {
         let endpoints = self.currentSettings?.resourses.map({ resource in
-            return ( resource.0.getResourceEndPoint(),
-                     resource.0.getResourceParser())
+            return ( resource.resource.getResourceEndPoint(),
+                     resource.resource.getResourceParser())
         })
         return endpoints
     }

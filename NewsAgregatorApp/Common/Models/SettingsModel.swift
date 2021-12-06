@@ -7,9 +7,14 @@
 
 import Foundation
 
+typealias ShowResources = (
+    resource: Resources,
+    isActive: Bool
+)
+
 struct SettingsModel {
     var mode: ShowModes
-    var resourses: [(Resources,Bool)]
+    var resourses: [ShowResources]
 }
 
 enum ShowModes {
