@@ -20,7 +20,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     weak var presenter: ListModuleInteractorOutput?
     //TODO - сделать ListModuleInteractorAssembly c функцией create() и в ней инитить интерактор со всеми его зависимостями
     let listViewModelBuilder = ListViewModelBuilder()
-    let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager(), xmlParser: XMLParserSevice(), jsonParser: JSONDecoder())
+    let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager())
     
     //TODO - сделать получение endpoints из модели настроек приложения
     let endpoint1 = EndpointCases.lentaApiEndpoint()

@@ -15,7 +15,7 @@ class ArticlesService: ArticlesServiceProtocol {
     
     let networkManager: NetworkingProtocol
     
-    init(networkManager: NetworkingProtocol, xmlParser: ParserProtocol, jsonParser: JSONDecoder) {
+    init(networkManager: NetworkingProtocol) {
         self.networkManager = networkManager
     }
     
