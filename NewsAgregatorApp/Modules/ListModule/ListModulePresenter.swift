@@ -11,7 +11,7 @@ protocol ListModuleViewInput: NSObject {
     func updateView(with: [ListViewModel])
 }
 
-class ListModulePresenter:  NSObject, ListModuleViewOutput {
+class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractorOutput {
     private weak var view: ListModuleViewInput?
     var router: ListRouterProtocol
     var interactor: ListModuleInteractorInput
@@ -26,13 +26,16 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput {
         self.router.openURL(url: itemUrl)
     }
     
+    // MARK: -ListModuleViewOutput
     func viewDidLoad() {
         self.interactor.getListModels()
     }
-}
-
-extension ListModulePresenter: ListModuleInteractorOutput {
+    
+    // MARK: - ListModuleInteractorOutput
     func listItemsRecieved(_ listItems: [ListViewModel]) {
         self.view?.updateView(with: listItems)
     }
 }
+
+
+

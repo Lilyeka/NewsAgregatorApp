@@ -7,7 +7,13 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+protocol SettingsModuleViewOutput {
+    func viewDidLoad()
+}
+
+class SettingsViewController: UIViewController, SettingsModuleViewInput {
+  
+    var presenter: SettingsModuleViewOutput?
     
     fileprivate var tableView: UITableView!
     
@@ -16,6 +22,7 @@ class SettingsViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setupUI()
         self.setupLayout()
+        self.presenter?.viewDidLoad()
     }
     
     fileprivate func setupUI() {
@@ -37,6 +44,11 @@ class SettingsViewController: UIViewController {
             self.tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    //MARK: - SettingsModuleViewInput
+    func updateView(with settings: SettingsModel) {
+        
     }
 }
 

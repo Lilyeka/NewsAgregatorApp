@@ -8,6 +8,7 @@
 import UIKit
 
 enum SettingsModuleAssembly {
+    
     static func create() -> SettingsViewController {
         let view = SettingsViewController()
         self.injectProperties(in: view)
@@ -15,6 +16,10 @@ enum SettingsModuleAssembly {
     }
     
     private static func injectProperties(in view: SettingsViewController) {
-        
+        let interactor = SettingsModuleInteractor()
+        let presenter = SettingsModulePresenter(view: view, interactor: interactor)
+        interactor.presenter = presenter
+        view.presenter = presenter
+//        router.viewController = view
     }
 }

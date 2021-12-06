@@ -9,7 +9,7 @@ import Foundation
 
 struct SettingsModel {
     var mode: ShowModes
-    var resourses: [Resources]
+    var resourses: [(Resources,Bool)]
 }
 
 enum ShowModes {

@@ -5,4 +5,14 @@
 //  Created by Лилия Левина on 06.12.2021.
 //
 
-import Foundation
+import UIKit
+
+struct SettingsViewModel {
+    var resources: [ResourceViewModel]
+    var mode: ShowModes
+}
+
+struct ResourceViewModel {
+    var title: NSAttributedString
+    var active: Bool
+}
