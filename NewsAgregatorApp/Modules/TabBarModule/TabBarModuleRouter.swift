@@ -25,10 +25,12 @@ class TabBarModuleRouter: TabBarModuleRouterProtocol {
 
 extension TabBarModuleRouter {
     static func tabs(usingSubmodules submodules: Submodules) -> Tabs {
-        let listTabBarItem = UITabBarItem(title: "News", image: nil, tag: 10)
-        let settingsTabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 11)
+        let listTabBarItem = UITabBarItem(title: "Новости", image: nil, tag: 10)
+        let settingsTabBarItem = UITabBarItem(title: "Настройки", image: nil, tag: 11)
         submodules.list.tabBarItem = listTabBarItem
+        submodules.list.title = "Новости"
         submodules.settings.tabBarItem = settingsTabBarItem
+        submodules.settings.title = "Настройки"
         
         return (
             list: submodules.list,

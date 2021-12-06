@@ -9,10 +9,12 @@ import UIKit
 
 enum TabBarModuleAssembly {
     static func create(subModules: TabBarModuleRouter.Submodules, presentationStyle: UIModalPresentationStyle) -> TabBarViewController {
+        
         let tabs = TabBarModuleRouter.tabs(usingSubmodules: subModules)
         let view = TabBarViewController(tabs: tabs)
         view.modalPresentationStyle = presentationStyle
         self.injectProperties(in: view)
+        
         return view
     }
     

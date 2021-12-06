@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum EndpointCases {
+enum EndpointCases {    
     static func newsApiEndpoint(country: String, apiKey: String) -> (EndpointProtocol, ParserProtocol) {
         let endpoint = Endpoint(httpMethod: "GET",
                         baseURLString: "https://newsapi.org/v2",

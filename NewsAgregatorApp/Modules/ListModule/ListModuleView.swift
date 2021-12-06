@@ -38,7 +38,7 @@ class ListViewController: UIViewController {
         self.presenter?.viewDidLoad()
     }
     
-    func setupUI() {
+    fileprivate func setupUI() {
         self.tableView = UITableView()
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.delegate = self
@@ -49,8 +49,7 @@ class ListViewController: UIViewController {
         self.view.addSubview(tableView)
     }
     
-    func setupLayout() {
-        
+    fileprivate func setupLayout() {
         NSLayoutConstraint.activate([
             self.tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),

@@ -25,6 +25,11 @@
 		6115F4BB275AADD0002EC3CA /* ListViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4BA275AADD0002EC3CA /* ListViewModelBuilder.swift */; };
 		613A6F5C27578B670034E69A /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A6F5B27578B670034E69A /* UITableViewCell+Extension.swift */; };
 		613A6F5E27578C6A0034E69A /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A6F5D27578C6A0034E69A /* ListViewModel.swift */; };
+		61553DF0275E0D1000376CA3 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61553DEF275E0D1000376CA3 /* SwitchTableViewCell.swift */; };
+		61553DF3275E14CA00376CA3 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61553DF2275E14CA00376CA3 /* SettingsModel.swift */; };
+		61553DF5275E151300376CA3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61553DF4275E151300376CA3 /* SettingsViewModel.swift */; };
+		61553DF8275E167900376CA3 /* SegmentControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61553DF7275E167900376CA3 /* SegmentControlTableViewCell.swift */; };
+		61553DFA275E1DF000376CA3 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61553DF9275E1DF000376CA3 /* SettingsService.swift */; };
 		615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */; };
 		615EF65B2756CE4F007958C6 /* ListModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF65A2756CE4F007958C6 /* ListModuleView.swift */; };
 		615EF65F2757822A007958C6 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615EF65E2757822A007958C6 /* ListTableViewCell.swift */; };
@@ -61,6 +66,11 @@
 		6115F4BA275AADD0002EC3CA /* ListViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelBuilder.swift; sourceTree = "<group>"; };
 		613A6F5B27578B670034E69A /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		613A6F5D27578C6A0034E69A /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		61553DEF275E0D1000376CA3 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		61553DF2275E14CA00376CA3 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		61553DF4275E151300376CA3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		61553DF7275E167900376CA3 /* SegmentControlTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlTableViewCell.swift; sourceTree = "<group>"; };
+		61553DF9275E1DF000376CA3 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		615EF6582756CB21007958C6 /* NavigationServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationServiceContainer.swift; sourceTree = "<group>"; };
 		615EF65A2756CE4F007958C6 /* ListModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleView.swift; sourceTree = "<group>"; };
 		615EF65E2757822A007958C6 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -126,6 +136,7 @@
 				6115F4AC275A08B9002EC3CA /* EndpointCases.swift */,
 				6115F4AE275A09EA002EC3CA /* Endpoint.swift */,
 				6115F4B6275A1505002EC3CA /* Article.swift */,
+				61553DF2275E14CA00376CA3 /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -133,6 +144,8 @@
 		6115F4B0275A0D06002EC3CA /* SettingsModule */ = {
 			isa = PBXGroup;
 			children = (
+				61553DF6275E164F00376CA3 /* Views */,
+				61553DF1275E14B500376CA3 /* Models */,
 				6115F49F2758E4AB002EC3CA /* SettingsModuleView.swift */,
 				6199BBDA275CE0140010ACE4 /* SettingsModuleAssembly.swift */,
 			);
@@ -162,10 +175,29 @@
 			isa = PBXGroup;
 			children = (
 				6115F4AA275A0625002EC3CA /* EndpointProtocol.swift */,
+				61BD7B662756C84200222377 /* AppServices */,
+				61BD7B602756C2C600222377 /* Services */,
 				6115F4A7275A05B8002EC3CA /* Models */,
 				613A6F5927578B3A0034E69A /* Extensions */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		61553DF1275E14B500376CA3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				61553DF4275E151300376CA3 /* SettingsViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		61553DF6275E164F00376CA3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				61553DEF275E0D1000376CA3 /* SwitchTableViewCell.swift */,
+				61553DF7275E167900376CA3 /* SegmentControlTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6199BBD9275CDDEF0010ACE4 /* TabBarModule */ = {
@@ -201,8 +233,6 @@
 			children = (
 				61BD7A1127569AAB00222377 /* AppDelegate.swift */,
 				61BD7A1327569AAB00222377 /* SceneDelegate.swift */,
-				61BD7B602756C2C600222377 /* Services */,
-				61BD7B662756C84200222377 /* AppServices */,
 				613A6F5A27578B450034E69A /* Common */,
 				6115F4B1275A0D34002EC3CA /* Modules */,
 				61BD7A1C27569AAC00222377 /* LaunchScreen.storyboard */,
@@ -240,6 +270,7 @@
 			children = (
 				6115F4A527596C6F002EC3CA /* NetworkManager.swift */,
 				6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */,
+				61553DF9275E1DF000376CA3 /* SettingsService.swift */,
 				6115F4B8275A936E002EC3CA /* XMLParserService.swift */,
 				6199BBE2275DFD750010ACE4 /* JSONParserService.swift */,
 				6115F4BA275AADD0002EC3CA /* ListViewModelBuilder.swift */,
@@ -384,9 +415,12 @@
 				6115F4B7275A1505002EC3CA /* Article.swift in Sources */,
 				6115F49C2758D586002EC3CA /* ListModuleRouter.swift in Sources */,
 				6199BBDD275CE16D0010ACE4 /* TabBarModuleView.swift in Sources */,
+				61553DFA275E1DF000376CA3 /* SettingsService.swift in Sources */,
+				61553DF8275E167900376CA3 /* SegmentControlTableViewCell.swift in Sources */,
 				6115F4B9275A936E002EC3CA /* XMLParserService.swift in Sources */,
 				6115F4A22758EB95002EC3CA /* ListModuleAssembly.swift in Sources */,
 				6199BBDF275CE1A20010ACE4 /* TabBarModuleAssembly.swift in Sources */,
+				61553DF5275E151300376CA3 /* SettingsViewModel.swift in Sources */,
 				6199BBDB275CE0140010ACE4 /* SettingsModuleAssembly.swift in Sources */,
 				6115F49E2758DE76002EC3CA /* ListModuleInteractor.swift in Sources */,
 				6115F4A627596C6F002EC3CA /* NetworkManager.swift in Sources */,
@@ -395,6 +429,7 @@
 				61BD7B652756C41700222377 /* NavigationService.swift in Sources */,
 				6199BBE1275CE3680010ACE4 /* TabBarModuleRouter.swift in Sources */,
 				61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */,
+				61553DF3275E14CA00376CA3 /* SettingsModel.swift in Sources */,
 				61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */,
 				6115F4AB275A0625002EC3CA /* EndpointProtocol.swift in Sources */,
 				615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */,
@@ -407,6 +442,7 @@
 				61BD7A1427569AAB00222377 /* SceneDelegate.swift in Sources */,
 				6115F49A2758D3F0002EC3CA /* ListModulePresenter.swift in Sources */,
 				61BD7B632756C38200222377 /* RootPresenter.swift in Sources */,
+				61553DF0275E0D1000376CA3 /* SwitchTableViewCell.swift in Sources */,
 				6115F4BB275AADD0002EC3CA /* ListViewModelBuilder.swift in Sources */,
 				615EF65B2756CE4F007958C6 /* ListModuleView.swift in Sources */,
 			);
