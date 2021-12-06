@@ -21,6 +21,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     //TODO - сделать ListModuleInteractorAssembly c функцией create() и в ней инитить интерактор со всеми его зависимостями
     let listViewModelBuilder = ListViewModelBuilder()
     let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager(), xmlParser: XMLParserSevice(), jsonParser: JSONDecoder())
+    
     //TODO - сделать получение endpoints из модели настроек приложения
     let endpoint1 = EndpointCases.lentaApiEndpoint()
     let endpoint2 = EndpointCases.gazetaApiEndpoint()
@@ -28,7 +29,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     func getListModels() {
         articleService.getArticles(endpoints: [endpoint1, endpoint2, endpoint3]) { [weak self] articles, error in
-            guard let strongSelf = self else { return }
+            if let strongSelf = self {
 
             let listViewModels = articles?.articles.map {
                 strongSelf.listViewModelBuilder.getViewModel(from: $0)
@@ -37,6 +38,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
             guard let listViewModels = listViewModels else { return }
             DispatchQueue.main.async {
                 strongSelf.presenter?.listItemsRecieved(listViewModels)
+            }
             }
         }
     }

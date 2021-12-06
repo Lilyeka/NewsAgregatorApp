@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol XMLParserProtocol {
+protocol ParserProtocol {
     func parseData(data: Data, completion: @escaping(([Article]) -> Void))
 }
 
-class XMLParserSevice: NSObject, XMLParserProtocol {
+class XMLParserSevice: NSObject, ParserProtocol {
     private var parseCompletion: (([Article]) -> Void)?
     private var xmlDict = [String: Any]()
     private var xmlDictArr = [[String: Any]]()

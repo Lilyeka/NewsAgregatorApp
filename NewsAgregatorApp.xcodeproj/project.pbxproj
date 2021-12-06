@@ -21,7 +21,7 @@
 		6115F4B3275A0DCF002EC3CA /* ArticlesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */; };
 		6115F4B5275A0FFA002EC3CA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B4275A0FFA002EC3CA /* Constants.swift */; };
 		6115F4B7275A1505002EC3CA /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B6275A1505002EC3CA /* Article.swift */; };
-		6115F4B9275A936E002EC3CA /* ParcerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B8275A936E002EC3CA /* ParcerService.swift */; };
+		6115F4B9275A936E002EC3CA /* XMLParserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4B8275A936E002EC3CA /* XMLParserService.swift */; };
 		6115F4BB275AADD0002EC3CA /* ListViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115F4BA275AADD0002EC3CA /* ListViewModelBuilder.swift */; };
 		613A6F5C27578B670034E69A /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A6F5B27578B670034E69A /* UITableViewCell+Extension.swift */; };
 		613A6F5E27578C6A0034E69A /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A6F5D27578C6A0034E69A /* ListViewModel.swift */; };
@@ -32,6 +32,7 @@
 		6199BBDD275CE16D0010ACE4 /* TabBarModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBDC275CE16D0010ACE4 /* TabBarModuleView.swift */; };
 		6199BBDF275CE1A20010ACE4 /* TabBarModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBDE275CE1A20010ACE4 /* TabBarModuleAssembly.swift */; };
 		6199BBE1275CE3680010ACE4 /* TabBarModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBE0275CE3680010ACE4 /* TabBarModuleRouter.swift */; };
+		6199BBE3275DFD750010ACE4 /* JSONParserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199BBE2275DFD750010ACE4 /* JSONParserService.swift */; };
 		61BD7A1227569AAB00222377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1127569AAB00222377 /* AppDelegate.swift */; };
 		61BD7A1427569AAB00222377 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1327569AAB00222377 /* SceneDelegate.swift */; };
 		61BD7A1627569AAB00222377 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BD7A1527569AAB00222377 /* RootViewController.swift */; };
@@ -56,7 +57,7 @@
 		6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesService.swift; sourceTree = "<group>"; };
 		6115F4B4275A0FFA002EC3CA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6115F4B6275A1505002EC3CA /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
-		6115F4B8275A936E002EC3CA /* ParcerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParcerService.swift; sourceTree = "<group>"; };
+		6115F4B8275A936E002EC3CA /* XMLParserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParserService.swift; sourceTree = "<group>"; };
 		6115F4BA275AADD0002EC3CA /* ListViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelBuilder.swift; sourceTree = "<group>"; };
 		613A6F5B27578B670034E69A /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		613A6F5D27578C6A0034E69A /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 		6199BBDC275CE16D0010ACE4 /* TabBarModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleView.swift; sourceTree = "<group>"; };
 		6199BBDE275CE1A20010ACE4 /* TabBarModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleAssembly.swift; sourceTree = "<group>"; };
 		6199BBE0275CE3680010ACE4 /* TabBarModuleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleRouter.swift; sourceTree = "<group>"; };
+		6199BBE2275DFD750010ACE4 /* JSONParserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserService.swift; sourceTree = "<group>"; };
 		61BD7A0E27569AAB00222377 /* NewsAgregatorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsAgregatorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BD7A1127569AAB00222377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61BD7A1327569AAB00222377 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,7 +240,8 @@
 			children = (
 				6115F4A527596C6F002EC3CA /* NetworkManager.swift */,
 				6115F4B2275A0DCF002EC3CA /* ArticlesService.swift */,
-				6115F4B8275A936E002EC3CA /* ParcerService.swift */,
+				6115F4B8275A936E002EC3CA /* XMLParserService.swift */,
+				6199BBE2275DFD750010ACE4 /* JSONParserService.swift */,
 				6115F4BA275AADD0002EC3CA /* ListViewModelBuilder.swift */,
 			);
 			path = Services;
@@ -381,7 +384,7 @@
 				6115F4B7275A1505002EC3CA /* Article.swift in Sources */,
 				6115F49C2758D586002EC3CA /* ListModuleRouter.swift in Sources */,
 				6199BBDD275CE16D0010ACE4 /* TabBarModuleView.swift in Sources */,
-				6115F4B9275A936E002EC3CA /* ParcerService.swift in Sources */,
+				6115F4B9275A936E002EC3CA /* XMLParserService.swift in Sources */,
 				6115F4A22758EB95002EC3CA /* ListModuleAssembly.swift in Sources */,
 				6199BBDF275CE1A20010ACE4 /* TabBarModuleAssembly.swift in Sources */,
 				6199BBDB275CE0140010ACE4 /* SettingsModuleAssembly.swift in Sources */,
@@ -396,6 +399,7 @@
 				6115F4AB275A0625002EC3CA /* EndpointProtocol.swift in Sources */,
 				615EF6592756CB21007958C6 /* NavigationServiceContainer.swift in Sources */,
 				6115F4AD275A08B9002EC3CA /* EndpointCases.swift in Sources */,
+				6199BBE3275DFD750010ACE4 /* JSONParserService.swift in Sources */,
 				613A6F5C27578B670034E69A /* UITableViewCell+Extension.swift in Sources */,
 				6115F4AF275A09EA002EC3CA /* Endpoint.swift in Sources */,
 				6115F4B3275A0DCF002EC3CA /* ArticlesService.swift in Sources */,
