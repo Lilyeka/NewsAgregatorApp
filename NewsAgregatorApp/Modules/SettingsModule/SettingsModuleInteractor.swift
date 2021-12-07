@@ -12,12 +12,14 @@ protocol SettingsModuleInteractorInput {
 }
 
 protocol SettingsModuleInteractorOutput: AnyObject {
-    func settingsRecieved(settings: SettingsModel)
+    func settingsRecieved(settings: SettingsViewModel)
 }
 
 class SettingsModuleInteractor: SettingsModuleInteractorInput {
     
     let settingsService: SettingsServiceProtocol = SettingsService.shared
+    
+    let viewModelsBuilder: SettingsViewModelBuilderProtocol = SettingsViewModelBuilder()
 
     weak var presenter: SettingsModuleInteractorOutput?
     
@@ -26,8 +28,7 @@ class SettingsModuleInteractor: SettingsModuleInteractorInput {
         guard let settings = settingsService.currentSettings else {
             return
         }
-        presenter?.settingsRecieved(settings: settings)
+        let viewModel = self.viewModelsBuilder.getSettingsViewModel(settings: settings)
+        presenter?.settingsRecieved(settings: viewModel)
     }
-    
-    
 }

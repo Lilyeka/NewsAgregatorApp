@@ -8,12 +8,20 @@
 import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
+    var viewModel: ResourceViewModel? {
+        didSet {
+            guard let viewModel = viewModel else {
+                return
+            }
+            self.titleLabel.attributedText = viewModel.title
+            self.switchControl.isOn = viewModel.active
+        }
+    }
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.text = " LENTA RU  LENTA RU LENTA RU LENTA RU LENTA RU LENTA RU LENTA RU LENTA RU LENTA RU LENTA RU"
         return label
     }()
     

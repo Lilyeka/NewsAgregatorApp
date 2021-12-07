@@ -19,8 +19,11 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     weak var presenter: ListModuleInteractorOutput?
     //TODO - сделать ListModuleInteractorAssembly c функцией create() и в ней инитить интерактор со всеми его зависимостями
-    let listViewModelBuilder = ListViewModelBuilder()
+    
+    let listViewModelBuilder: ListViewModelBuilderProtocol = ListViewModelBuilder()
+    
     let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager())
+    
     let settingsService: SettingsServiceProtocol = SettingsService.shared
     
     func getListModels() {

@@ -8,8 +8,13 @@
 import UIKit
 
 struct SettingsViewModel {
+    enum Sections: String {
+        case resoursesSection
+        case modeSection
+    }
     var resources: [ResourceViewModel]
     var mode: ShowModes
+    var sections: [Sections] = [.resoursesSection, .modeSection]
 }
 
 struct ResourceViewModel {

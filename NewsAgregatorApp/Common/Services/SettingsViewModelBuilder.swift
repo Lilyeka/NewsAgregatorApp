@@ -7,7 +7,11 @@
 
 import UIKit
 
-struct SettingsViewModelBuilder {
+protocol SettingsViewModelBuilderProtocol {
+    func getSettingsViewModel(settings: SettingsModel) -> SettingsViewModel 
+}
+
+struct SettingsViewModelBuilder: SettingsViewModelBuilderProtocol {
     
     func getSettingsViewModel(settings: SettingsModel) -> SettingsViewModel {
 
@@ -16,7 +20,7 @@ struct SettingsViewModelBuilder {
             return ResourceViewModel(title: attributedTitleString, active: isActive)
         }
         
-        let viewModel = SettingsViewModel(resources: resViewModels, mode: settings.mode)
+        let viewModel = SettingsViewModel(resources: resViewModels, mode: settings.mode, sections: [.resoursesSection, .modeSection])
         return viewModel
     }
     

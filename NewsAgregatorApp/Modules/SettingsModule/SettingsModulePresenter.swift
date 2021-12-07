@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SettingsModuleViewInput: AnyObject {
-    func updateView(with settings: SettingsModel)
+    func updateView(with settings: SettingsViewModel)
 }
 
 class SettingsModulePresenter: SettingsModuleViewOutput, SettingsModuleInteractorOutput {
@@ -22,11 +22,11 @@ class SettingsModulePresenter: SettingsModuleViewOutput, SettingsModuleInteracto
     }
     //MARK: -SettingsModuleViewOutput
     func viewDidLoad() {
-        self.interactor
+        self.interactor?.getSettings()
     }
     
     //MARK: -SettingsModuleInteractorOutput
-    func settingsRecieved(settings: SettingsModel) {
+    func settingsRecieved(settings: SettingsViewModel) {
         self.view?.updateView(with: settings)
     }
 }
