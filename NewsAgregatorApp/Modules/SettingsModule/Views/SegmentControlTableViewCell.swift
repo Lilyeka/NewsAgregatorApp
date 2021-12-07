@@ -9,18 +9,25 @@ import UIKit
 
 class SegmentControlTableViewCell: UITableViewCell {
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.text = " Заголовок для сегмент контрола"
-        return label
-    }()
-    
-    let segmentControl: UISegmentedControl =  {
-        let control = UISegmentedControl(items: ["One", "Two", "Three"])
+    var viewModel: ShowModes? {
+        didSet {
+            guard let viewModel = viewModel else {
+                return
+            }
+            var i = 0
+            ShowModes.allCases.forEach { mode in
+                self.segmentControl.insertSegment(withTitle: mode.rawValue, at: i, animated: false)
+                i += 1
+            }
+            if let selectedSegmentIndex = ShowModes.allCases.firstIndex(of: viewModel) {
+                self.segmentControl.selectedSegmentIndex = selectedSegmentIndex
+            }
+        }
+    }
+
+    var segmentControl: UISegmentedControl =  {
+        let control = UISegmentedControl()
         control.translatesAutoresizingMaskIntoConstraints = false
-        control.selectedSegmentIndex = 0
         control.selectedSegmentTintColor = UIColor.gray
         control.tintColor = UIColor.yellow
         control.backgroundColor = UIColor.white
@@ -31,19 +38,15 @@ class SegmentControlTableViewCell: UITableViewCell {
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(segmentControl)
         self.setupLayout()
     }
     
     fileprivate func setupLayout() {
         NSLayoutConstraint.activate([
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8.0),
-            self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8.0),
-            self.titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8.0),
-            
+     
             self.segmentControl.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8.0),
-            self.segmentControl.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 8.0),
+            self.segmentControl.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8.0),
             self.segmentControl.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8.0),
             self.segmentControl.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8.0)
         ])

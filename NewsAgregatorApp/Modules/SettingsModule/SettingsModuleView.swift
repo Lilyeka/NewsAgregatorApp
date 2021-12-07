@@ -12,7 +12,7 @@ protocol SettingsModuleViewOutput {
 }
 
 class SettingsViewController: UIViewController, SettingsModuleViewInput {
-  
+    
     var presenter: SettingsModuleViewOutput?
     var viewModel: SettingsViewModel?
     
@@ -59,8 +59,13 @@ extension SettingsViewController: UITableViewDelegate {
 }
 
 extension SettingsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionItem = self.viewModel?.sections[section] else { return nil }
+        return sectionItem.rawValue
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionItem = viewModel?.sections[section] else { return 0 }
+        guard let sectionItem = self.viewModel?.sections[section] else { return 0 }
         switch sectionItem {
         case .modeSection:
             return 1
@@ -74,23 +79,21 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let viewModel = self.viewModel?.resources[indexPath.row]
-        
-        // TODO - передавать в ячейку вьюмодель ячейки из вьюмодели настроек
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.reuseIdentifier, for: indexPath) as? SwitchTableViewCell else {
+        let sectionIndex = indexPath.section
+        let settingsSection = self.viewModel?.sections[sectionIndex]
+        switch settingsSection {
+        case .resoursesSection:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.reuseIdentifier, for: indexPath) as? SwitchTableViewCell else { return UITableViewCell() }
+            let viewModel = self.viewModel?.resources[indexPath.row]
+            cell.viewModel = viewModel
+            return cell
+        case .modeSection:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SegmentControlTableViewCell.reuseIdentifier, for: indexPath) as? SegmentControlTableViewCell else { return UITableViewCell() }
+            cell.viewModel = self.viewModel?.mode
+            return cell
+        case .none:
             return UITableViewCell()
         }
-        cell.viewModel = viewModel
-        return cell
-        //        if let dequeCell = tableView.dequeueReusableCell(withIdentifier: SegmentControlTableViewCell.reuseIdentifier, for: indexPath) as? SegmentControlTableViewCell {
-        //            cell = dequeCell
-        //        }
-        
-        // let viewModel = listViewModels?[indexPath.row]
-        // cell.isExtendedMode = settingsModel
-        // cell.viewModel = viewModel
-        
     }
 }
 

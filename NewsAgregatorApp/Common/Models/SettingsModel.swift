@@ -17,9 +17,9 @@ struct SettingsModel {
     var resourses: [ShowResources]
 }
 
-enum ShowModes {
-    case normalMode
-    case extentMode
+enum ShowModes: String, CaseIterable {
+    case normalMode = "Обычный"
+    case extentMode = "Расширенный"
 }
 
 enum Resources: String {

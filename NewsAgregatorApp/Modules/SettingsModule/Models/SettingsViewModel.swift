@@ -9,8 +9,8 @@ import UIKit
 
 struct SettingsViewModel {
     enum Sections: String {
-        case resoursesSection
-        case modeSection
+        case resoursesSection = "Источники новостей"
+        case modeSection = "Режим отображения"
     }
     var resources: [ResourceViewModel]
     var mode: ShowModes
