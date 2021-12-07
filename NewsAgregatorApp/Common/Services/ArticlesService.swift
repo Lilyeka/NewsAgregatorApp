@@ -30,12 +30,12 @@ class ArticlesService: ArticlesServiceProtocol {
                     switch result {
                     case .success(let data):
                         parser.parseData(data: data) { articles in
+                            semaphore.wait()
                             if !articles.isEmpty {
-                                semaphore.wait()
                                 totalArticles.append(contentsOf: articles)
-                                semaphore.signal()
-                                group.leave()
                             }
+                            semaphore.signal()
+                            group.leave()
                         }
                     case .failure(let error):
                         print(error)
