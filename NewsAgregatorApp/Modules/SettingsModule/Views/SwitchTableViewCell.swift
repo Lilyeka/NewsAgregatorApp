@@ -8,6 +8,9 @@
 import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
+    
+    var onSwitchChanged:((Bool)->Void)?
+
     var viewModel: ResourceViewModel? {
         didSet {
             guard let viewModel = viewModel else {
@@ -26,9 +29,10 @@ class SwitchTableViewCell: UITableViewCell {
     }()
     
     let switchControl: UISwitch =  {
-       return UISwitch()
+        let switchControl = UISwitch()
+        switchControl.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        return switchControl
     }()
-    
     
     // MARK: - Init
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,7 +42,16 @@ class SwitchTableViewCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         self.setupLayout()
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    // MARK: - Actions
+    @objc func switchChanged(sender: UISwitch) {
+        self.onSwitchChanged?(sender.isOn)
+    }
+    
+    // MARK: - Private methods
     fileprivate func setupLayout() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8.0),
@@ -47,20 +60,4 @@ class SwitchTableViewCell: UITableViewCell {
             titleLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8.0)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

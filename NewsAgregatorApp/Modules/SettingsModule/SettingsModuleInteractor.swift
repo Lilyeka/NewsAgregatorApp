@@ -9,6 +9,8 @@ import Foundation
 
 protocol SettingsModuleInteractorInput {
     func getSettings()
+    func setResourceActiveState(index:Int, isActive: Bool)
+    func setArticlesShowMode(modeIndex:Int)
 }
 
 protocol SettingsModuleInteractorOutput: AnyObject {
@@ -17,18 +19,26 @@ protocol SettingsModuleInteractorOutput: AnyObject {
 
 class SettingsModuleInteractor: SettingsModuleInteractorInput {
     
-    let settingsService: SettingsServiceProtocol = SettingsService.shared
+    var settingsService: SettingsServiceProtocol = SettingsService.shared
     
     let viewModelsBuilder: SettingsViewModelBuilderProtocol = SettingsViewModelBuilder()
-
+    
     weak var presenter: SettingsModuleInteractorOutput?
     
     func getSettings() {
-        settingsService.getSettingsInfo()
-        guard let settings = settingsService.currentSettings else {
-            return
-        }
+        self.settingsService.getSettingsInfo()
+        guard let settings = settingsService.currentSettings else { return }
         let viewModel = self.viewModelsBuilder.getSettingsViewModel(settings: settings)
-        presenter?.settingsRecieved(settings: viewModel)
+        self.presenter?.settingsRecieved(settings: viewModel)
     }
+    
+    func setResourceActiveState(index:Int, isActive: Bool) {
+        self.settingsService.currentSettings?.resourses[index].isActive = isActive
+    }
+    
+    func setArticlesShowMode(modeIndex: Int) {
+        let mode = ShowModes.allCases[modeIndex]
+        self.settingsService.currentSettings?.mode = mode
+    }
+    
 }

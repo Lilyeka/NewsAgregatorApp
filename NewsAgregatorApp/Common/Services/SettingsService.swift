@@ -8,9 +8,11 @@
 import Foundation
 
 protocol SettingsServiceProtocol {
-    var currentSettings: SettingsModel? { get }
+    //TODO убрать set оставить только get
+    var currentSettings: SettingsModel? { get set }
     
     func getSettingsInfo()
+    func changeSettingsInfo(resourceIndex:Int, isActive: Bool)
     func getEndpointsAndParsers() -> [(EndpointProtocol,ParserProtocol)]?
 }
 
@@ -43,4 +45,10 @@ class SettingsService: SettingsServiceProtocol {
         })
         return endpoints
     }
+    
+    func changeSettingsInfo(resourceIndex:Int, isActive: Bool) {
+        var resource = self.currentSettings?.resourses[resourceIndex]
+        resource?.isActive = isActive
+    }
+    
 }

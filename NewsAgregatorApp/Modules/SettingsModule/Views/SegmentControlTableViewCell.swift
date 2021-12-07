@@ -9,6 +9,8 @@ import UIKit
 
 class SegmentControlTableViewCell: UITableViewCell {
     
+    var onSegmentChanged:((Int) -> Void)?
+    
     var viewModel: ShowModes? {
         didSet {
             guard let viewModel = viewModel else {
@@ -24,16 +26,17 @@ class SegmentControlTableViewCell: UITableViewCell {
             }
         }
     }
-
+    
     var segmentControl: UISegmentedControl =  {
         let control = UISegmentedControl()
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentTintColor = UIColor.gray
         control.tintColor = UIColor.yellow
         control.backgroundColor = UIColor.white
+        control.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
         return control
     }()
-        
+    
     // MARK: - Init
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,29 +45,23 @@ class SegmentControlTableViewCell: UITableViewCell {
         self.setupLayout()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Actions
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        let selectedIndex = sender.selectedSegmentIndex
+        self.onSegmentChanged?(selectedIndex)
+    }
+    
+    // MARK: - Private methods
     fileprivate func setupLayout() {
         NSLayoutConstraint.activate([
-     
             self.segmentControl.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8.0),
             self.segmentControl.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8.0),
             self.segmentControl.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8.0),
             self.segmentControl.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8.0)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

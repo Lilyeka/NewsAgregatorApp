@@ -12,7 +12,7 @@ protocol SettingsModuleViewInput: AnyObject {
 }
 
 class SettingsModulePresenter: SettingsModuleViewOutput, SettingsModuleInteractorOutput {
-    
+
     weak var view: SettingsModuleViewInput?
     var interactor: SettingsModuleInteractorInput?
     
@@ -23,6 +23,14 @@ class SettingsModulePresenter: SettingsModuleViewOutput, SettingsModuleInteracto
     //MARK: -SettingsModuleViewOutput
     func viewDidLoad() {
         self.interactor?.getSettings()
+    }
+    
+    func switchChanged(index: Int, isActive: Bool) {
+        self.interactor?.setResourceActiveState(index: index, isActive: isActive)
+    }
+    
+    func segmentControlChanged(index: Int) {
+        self.interactor?.setArticlesShowMode(modeIndex: index)
     }
     
     //MARK: -SettingsModuleInteractorOutput

@@ -9,6 +9,8 @@ import UIKit
 
 protocol SettingsModuleViewOutput {
     func viewDidLoad()
+    func switchChanged(index: Int, isActive: Bool)
+    func segmentControlChanged(index: Int)
 }
 
 class SettingsViewController: UIViewController, SettingsModuleViewInput {
@@ -29,7 +31,6 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
     fileprivate func setupUI() {
         self.tableView = UITableView()
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.reuseIdentifier)
         self.tableView.register(SegmentControlTableViewCell.self, forCellReuseIdentifier: SegmentControlTableViewCell.reuseIdentifier)
@@ -52,10 +53,6 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
         self.viewModel = settings
         self.tableView.reloadData()
     }
-}
-
-extension SettingsViewController: UITableViewDelegate {
-    
 }
 
 extension SettingsViewController: UITableViewDataSource {
@@ -86,10 +83,16 @@ extension SettingsViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.reuseIdentifier, for: indexPath) as? SwitchTableViewCell else { return UITableViewCell() }
             let viewModel = self.viewModel?.resources[indexPath.row]
             cell.viewModel = viewModel
+            cell.onSwitchChanged = { [unowned self] isOn in
+                self.presenter?.switchChanged(index: indexPath.row, isActive: isOn)
+            }
             return cell
         case .modeSection:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SegmentControlTableViewCell.reuseIdentifier, for: indexPath) as? SegmentControlTableViewCell else { return UITableViewCell() }
             cell.viewModel = self.viewModel?.mode
+            cell.onSegmentChanged = { [unowned self] selectedIndex in
+                self.presenter?.segmentControlChanged(index: selectedIndex)
+            }
             return cell
         case .none:
             return UITableViewCell()
