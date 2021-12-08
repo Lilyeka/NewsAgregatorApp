@@ -9,9 +9,11 @@ import Foundation
 
 protocol ListModuleViewInput: NSObject {
     func updateView(with: [ListViewModel])
+    func updateView(with: SettingsModel)
 }
 
 class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractorOutput {
+
     private weak var view: ListModuleViewInput?
     var router: ListRouterProtocol
     var interactor: ListModuleInteractorInput
@@ -28,12 +30,17 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractor
     
     // MARK: -ListModuleViewOutput
     func viewDidLoad() {
+        self.interactor.getSettings()
         self.interactor.getListModels()
     }
     
     // MARK: - ListModuleInteractorOutput
     func listItemsRecieved(_ listItems: [ListViewModel]) {
         self.view?.updateView(with: listItems)
+    }
+    
+    func settingsRecieved(_ settings: SettingsModel) {
+        self.view?.updateView(with: settings)
     }
 }
 

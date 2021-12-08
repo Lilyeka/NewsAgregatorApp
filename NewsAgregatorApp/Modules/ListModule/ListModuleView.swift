@@ -19,7 +19,7 @@ class ListViewController: UIViewController {
     fileprivate var tableView: UITableView!
     
     var listViewModels: [ListViewModel]?    
-    var settingsModel = true
+    var settingsModel: SettingsModel?
     
     init(presentationStyle: UIModalPresentationStyle) {
         super.init(nibName: nil, bundle: nil)
@@ -35,6 +35,11 @@ class ListViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setupUI()
         self.setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
         self.presenter?.viewDidLoad()
     }
     
@@ -64,9 +69,10 @@ extension ListViewController: UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as? ListTableViewCell else { return UITableViewCell() }
         
         let viewModel = listViewModels?[indexPath.row]
-        cell.isExtendedMode = settingsModel
+        if let settingsModel = settingsModel {
+            cell.isExtendedMode = settingsModel.mode.isExtendedMode()
+        }
         cell.viewModel = viewModel
-      
         return cell
     }
     
@@ -85,6 +91,11 @@ extension ListViewController: UITableViewDataSource {
 }
 
 extension ListViewController: ListModuleViewInput {
+    func updateView(with: SettingsModel) {
+        self.settingsModel = with
+        //tableView.reloadData()
+    }
+    
     func updateView(with: [ListViewModel]) {
         self.listViewModels = with
         tableView.reloadData()

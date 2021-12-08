@@ -20,6 +20,10 @@ struct SettingsModel {
 enum ShowModes: String, CaseIterable {
     case normalMode = "Обычный"
     case extentMode = "Расширенный"
+    
+    func isExtendedMode() -> Bool {
+        return self == .extentMode ? true : false
+    }
 }
 
 enum Resources: String {

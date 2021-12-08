@@ -8,11 +8,13 @@
 import UIKit
 
 protocol ListModuleInteractorInput: NSObject {
+    func getSettings()
     func getListModels()
 }
 
 protocol ListModuleInteractorOutput: NSObject {
     func listItemsRecieved(_ listItems: [ListViewModel])
+    func settingsRecieved(_ settings: SettingsModel)
 }
 
 class ListModuleInteractor: NSObject, ListModuleInteractorInput {
@@ -26,8 +28,13 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     let settingsService: SettingsServiceProtocol = SettingsService.shared
     
-    func getListModels() {
+    func getSettings() {
         settingsService.getSettingsInfo()
+        guard let settingsModel = settingsService.currentSettings else { return }
+        self.presenter?.settingsRecieved(settingsModel)
+    }
+    
+    func getListModels() {
         guard let endpoints = settingsService.getEndpointsAndParsers() else { return }
         articleService.getArticles(endpoints: endpoints) { [weak self] articles, error in
             if let strongSelf = self {

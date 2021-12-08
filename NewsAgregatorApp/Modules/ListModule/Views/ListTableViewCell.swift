@@ -25,7 +25,29 @@ class ListTableViewCell: UITableViewCell {
             self.markImageView.isHidden = !viewModel.hasBeenRead
         }
     }
-    var isExtendedMode: Bool = true
+    var isExtendedMode: Bool? {
+        didSet {
+            guard let isExtendedMode = isExtendedMode else {
+                return
+            }
+            if isExtendedMode {
+                if self.descriptionLabel.superview == nil {
+                    self.contentView.addSubview(self.descriptionLabel)
+                }
+                
+                NSLayoutConstraint.activate(descriptionLabelConstraints)
+                NSLayoutConstraint.deactivate([subTitleLabelNoDescriptionTopConstraint])
+                NSLayoutConstraint.activate([subTitleLabelDescriptionTopConstraint])
+            } else {
+                if self.descriptionLabel.superview != nil {
+                    self.descriptionLabel.removeFromSuperview()
+                }
+                NSLayoutConstraint.deactivate(descriptionLabelConstraints)
+                NSLayoutConstraint.activate([subTitleLabelNoDescriptionTopConstraint])
+                NSLayoutConstraint.deactivate([subTitleLabelDescriptionTopConstraint])
+            }
+        }
+    }
     
     var listImageView: UIImageView = {
         var imageView = UIImageView()
@@ -74,20 +96,43 @@ class ListTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    var normalConstraints = [NSLayoutConstraint]()
+    var extendedConstraints = [NSLayoutConstraint]()
+    var baseConstraints = [NSLayoutConstraint]()
+    
+    var descriptionLabelConstraints = [NSLayoutConstraint]()
+    var subTitleLabelDescriptionTopConstraint = NSLayoutConstraint()
+    var subTitleLabelNoDescriptionTopConstraint = NSLayoutConstraint()
+    
     // MARK: - Init
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.accessoryType = .disclosureIndicator
+        self.setupSubviews()
         
+        self.descriptionLabelConstraints = self.getDescriptionLabelConstrains()
+        self.subTitleLabelDescriptionTopConstraint = self.subTitleLabel.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 4.0)
+        self.subTitleLabelNoDescriptionTopConstraint = self.subTitleLabel.topAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: 4.0)
+        
+        self.setupLayout()
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private methods
+    fileprivate func setupSubviews() {
         self.containerView.addSubview(listImageView)
         self.containerView.addSubview(titleLabel)
         self.containerView.addSubview(markImageView)
-        
         self.contentView.addSubview(containerView)
         self.contentView.addSubview(descriptionLabel)
         self.contentView.addSubview(subTitleLabel)
-      
+    }
+    
+    fileprivate func setupLayout() {
         NSLayoutConstraint.activate([
             self.markImageView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -8.0),
             self.markImageView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 8.0),
@@ -109,31 +154,20 @@ class ListTableViewCell: UITableViewCell {
             self.containerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             self.containerView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             self.containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            self.descriptionLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8.0),
-            self.descriptionLabel.topAnchor.constraint(equalTo: self.containerView.bottomAnchor),
-            self.descriptionLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8.0),
-        
+
             self.subTitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.contentView.leadingAnchor, constant: 100.0),
-            self.subTitleLabel.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 4.0),
+            self.subTitleLabelNoDescriptionTopConstraint,
             self.subTitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8.0),
             self.subTitleLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8.0)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
+    func getDescriptionLabelConstrains() -> [NSLayoutConstraint] {
+        return [
+        self.descriptionLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8.0),
+        self.descriptionLabel.topAnchor.constraint(equalTo: self.containerView.bottomAnchor),
+        self.descriptionLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8.0)
+        ]
     }
-
 }
 

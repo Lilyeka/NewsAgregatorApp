@@ -255,8 +255,8 @@
 			children = (
 				6115F4A12758EB95002EC3CA /* ListModuleAssembly.swift */,
 				615EF65A2756CE4F007958C6 /* ListModuleView.swift */,
-				6115F4992758D3F0002EC3CA /* ListModulePresenter.swift */,
 				6115F49D2758DE76002EC3CA /* ListModuleInteractor.swift */,
+				6115F4992758D3F0002EC3CA /* ListModulePresenter.swift */,
 				6115F49B2758D586002EC3CA /* ListModuleRouter.swift */,
 				6115F4A427596422002EC3CA /* Models */,
 				6115F4A327596402002EC3CA /* Views */,
