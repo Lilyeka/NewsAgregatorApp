@@ -15,9 +15,9 @@ struct SettingsViewModelBuilder: SettingsViewModelBuilderProtocol {
     
     func getSettingsViewModel(settings: SettingsModel) -> SettingsViewModel {
 
-        let resViewModels: [ResourceViewModel] = settings.resourses.map { resource, isActive in
-            let attributedTitleString = self.getAttributedString(string: resource.rawValue, fontSize: 20, color: .black, aligment: .left)
-            return ResourceViewModel(title: attributedTitleString, active: isActive)
+        let resViewModels: [ResourceViewModel] = settings.resourses.map { resource in
+            let attributedTitleString = self.getAttributedString(string: resource.resource.rawValue, fontSize: 20, color: .black, aligment: .left)
+            return ResourceViewModel(title: attributedTitleString, active: resource.isActive)
         }
         
         let viewModel = SettingsViewModel(resources: resViewModels, mode: settings.mode, sections: [.resoursesSection, .modeSection])

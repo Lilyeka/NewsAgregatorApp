@@ -20,6 +20,7 @@ protocol SettingsModuleInteractorOutput: AnyObject {
 class SettingsModuleInteractor: SettingsModuleInteractorInput {
     
     var settingsService: SettingsServiceProtocol = SettingsService.shared
+    var userDefaultsService: UserDefaultsManagerProtocol = UserDefaultsManager(userDefaults: UserDefaults.standard)
     
     let viewModelsBuilder: SettingsViewModelBuilderProtocol = SettingsViewModelBuilder()
     
@@ -34,11 +35,12 @@ class SettingsModuleInteractor: SettingsModuleInteractorInput {
     
     func setResourceActiveState(index:Int, isActive: Bool) {
         self.settingsService.currentSettings?.resourses[index].isActive = isActive
+        self.userDefaultsService.encodeValue(forKey: .settingsModel, value: self.settingsService.currentSettings)
     }
     
     func setArticlesShowMode(modeIndex: Int) {
         let mode = ShowModes.allCases[modeIndex]
         self.settingsService.currentSettings?.mode = mode
+        self.userDefaultsService.encodeValue(forKey: .settingsModel, value: self.settingsService.currentSettings)
     }
-    
 }
