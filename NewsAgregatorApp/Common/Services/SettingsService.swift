@@ -63,5 +63,4 @@ class SettingsService: SettingsServiceProtocol {
                              resourses :resourses,
                              updatingRate: 1)
     }
-    
 }

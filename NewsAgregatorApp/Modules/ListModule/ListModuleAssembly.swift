@@ -22,5 +22,6 @@ enum ListModuleAssembly {
         interactor.presenter = presenter
         view.presenter = presenter
         router.viewController = view
+        router.presenter = presenter
     }
 }

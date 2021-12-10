@@ -9,16 +9,23 @@ import Foundation
 import UIKit
 import SafariServices
 
-protocol ListRouterProtocol {
-    func openURL(url: URL)
+protocol ListRouterInput: AnyObject {
+    func openURL(url: URL, index: Int)
 }
 
-class ListModuleRouter: ListRouterProtocol {
-    weak var viewController: ListViewController?
+protocol ListRouterOutput: AnyObject {
+    func urlOpened(url: URL, index: Int)
+}
 
-    func openURL(url: URL) {
+class ListModuleRouter: ListRouterInput {
+    weak var viewController: ListViewController?
+    weak var presenter: ListRouterOutput?
+
+    func openURL(url: URL, index: Int) {
         let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-        self.viewController?.present(vc, animated: true)
+        self.viewController?.present(vc, animated: true) {
+            self.presenter?.urlOpened(url: url, index: index)
+        }
     }
 }
 

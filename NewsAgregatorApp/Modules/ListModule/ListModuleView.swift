@@ -9,17 +9,18 @@ import UIKit
 
 protocol ListModuleViewOutput: NSObject {
     func viewDidLoad()
-    func listItemDidSelect(itemUrl: URL)
+    func listItemDidSelect(item: ListViewModel, index: Int)
 }
 
 class ListViewController: UIViewController {
-
+    
     var presenter: ListModuleViewOutput?
     
     fileprivate var tableView: UITableView!
     
-    var listViewModels: [ListViewModel]?    
+    var listViewModels: [ListViewModel]?
     var settingsModel: SettingsModel?
+    var isfirstWillAppear = false
     
     init(presentationStyle: UIModalPresentationStyle) {
         super.init(nibName: nil, bundle: nil)
@@ -39,8 +40,11 @@ class ListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("viewDidAppear")
-        self.presenter?.viewDidLoad()
+        if isfirstWillAppear == false {
+            print("viewDidAppear")
+            self.presenter?.viewDidLoad()
+            isfirstWillAppear = true
+        }
     }
     
     fileprivate func setupUI() {
@@ -78,9 +82,8 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        guard let viewModel = listViewModels?[indexPath.row],
-              let url = URL(string: viewModel.url) else { return }
-        self.presenter?.listItemDidSelect(itemUrl: url)
+        guard let viewModel = listViewModels?[indexPath.row] else { return }
+        self.presenter?.listItemDidSelect(item: viewModel, index: indexPath.row)
     }
 }
 
@@ -91,23 +94,31 @@ extension ListViewController: UITableViewDataSource {
 }
 
 extension ListViewController: ListModuleViewInput {
-    func updateView(with: SettingsModel) {
     
+    func updateView(with: SettingsModel) {
+        
         //   guard let settingsModel = self.settingsModel else {
-            self.settingsModel = with
-       //     return
+        self.settingsModel = with
+        //     return
         //}
         
         // TODO: - обновляем таблицу если своя текущая модель ненулевая
         // и не равна with
-//        if settingsModel != with {
-//            self.settingsModel = with
-//            tableView.reloadData()
-//        }
+        //        if settingsModel != with {
+        //            self.settingsModel = with
+        //            tableView.reloadData()
+        //        }
     }
     
     func updateView(with: [ListViewModel]) {
         self.listViewModels = with
         tableView.reloadData()
     }
+    
+    func updateView(with: ListViewModel, index: Int) {
+        //guard var listViewModels = listViewModels else { return }
+        self.listViewModels?[index] = with
+        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    }
+    
 }
