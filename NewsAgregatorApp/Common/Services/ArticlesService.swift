@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ArticlesServiceProtocol {
-    func getArticles(endpoints: [(EndpointProtocol, ParserProtocol)], completion: @escaping (Articles?, Error?) -> Void)
+    func getArticles(endpoints: [(Resources, EndpointProtocol, ParserProtocol)], completion: @escaping (Articles?, Error?) -> Void)
 }
 
 class ArticlesService: ArticlesServiceProtocol {
@@ -19,12 +19,12 @@ class ArticlesService: ArticlesServiceProtocol {
         self.networkManager = networkManager
     }
     
-    func getArticles(endpoints: [(EndpointProtocol, ParserProtocol)], completion: @escaping (Articles?, Error?) -> Void) {
+    func getArticles(endpoints: [(Resources, EndpointProtocol, ParserProtocol)], completion: @escaping (Articles?, Error?) -> Void) {
         var totalArticles = [Article]()
         let group = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)
         if !endpoints.isEmpty {
-            endpoints.forEach { (endpoint, parser) in
+            endpoints.forEach { (resource, endpoint, parser) in
                 group.enter()
                 self.networkManager.request(endpoint) { result in
                     switch result {
@@ -32,7 +32,11 @@ class ArticlesService: ArticlesServiceProtocol {
                         parser.parseData(data: data) { articles in
                             semaphore.wait()
                             if !articles.isEmpty {
-                                totalArticles.append(contentsOf: articles)
+                                var articlesCopy = articles
+                                for index in articlesCopy.indices {
+                                    articlesCopy[index].resource = resource
+                                }
+                                totalArticles.append(contentsOf: articlesCopy)
                             }
                             semaphore.signal()
                             group.leave()

@@ -23,9 +23,10 @@ class SettingsModel: Codable {
         self.updatingRate = updatingRate
     }
     
-    func getEndpointsAndParsers() -> [(EndpointProtocol,ParserProtocol)]? {
+    func getEndpointsAndParsers() -> [(Resources, EndpointProtocol, ParserProtocol)]? {
         let endpoints = self.resourses.map({ resource in
-            return ( resource.resource.getResourceEndPoint(),
+            return ( resource.resource,
+                     resource.resource.getResourceEndPoint(),
                      resource.resource.getResourceParser())
         })
         return endpoints
