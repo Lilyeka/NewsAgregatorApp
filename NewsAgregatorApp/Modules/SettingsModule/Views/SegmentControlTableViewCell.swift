@@ -51,8 +51,7 @@ class SegmentControlTableViewCell: UITableViewCell {
     
     // MARK: - Actions
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        let selectedIndex = sender.selectedSegmentIndex
-        self.onSegmentChanged?(selectedIndex)
+        self.onSegmentChanged?(sender.selectedSegmentIndex)
     }
     
     // MARK: - Private methods

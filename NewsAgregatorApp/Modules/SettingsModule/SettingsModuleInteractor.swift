@@ -19,28 +19,34 @@ protocol SettingsModuleInteractorOutput: AnyObject {
 
 class SettingsModuleInteractor: SettingsModuleInteractorInput {
     
-    var settingsService: SettingsServiceProtocol = SettingsService.shared
-    var userDefaultsService: UserDefaultsManagerProtocol = UserDefaultsManager(userDefaults: UserDefaults.standard)
-    
-    let viewModelsBuilder: SettingsViewModelBuilderProtocol = SettingsViewModelBuilder()
+    var settingsService: SettingsServiceProtocol
+    let viewModelsBuilder: SettingsViewModelBuilderProtocol
     
     weak var presenter: SettingsModuleInteractorOutput?
     
+    var settingsModel: SettingsModel?
+    
+    init(settingsService: SettingsServiceProtocol, viewModelsBuilder: SettingsViewModelBuilderProtocol) {
+        self.settingsService = settingsService
+        self.viewModelsBuilder = viewModelsBuilder
+    }
+    
     func getSettings() {
-        self.settingsService.getSettingsInfo()
-        guard let settings = settingsService.currentSettings else { return }
+        self.settingsModel = self.settingsService.getSettingsInfo()
+        guard let settings = self.settingsModel else { return }
         let viewModel = self.viewModelsBuilder.getSettingsViewModel(settings: settings)
         self.presenter?.settingsRecieved(settings: viewModel)
     }
     
     func setResourceActiveState(index:Int, isActive: Bool) {
-        self.settingsService.currentSettings?.resourses[index].isActive = isActive
-        self.userDefaultsService.encodeValue(forKey: .settingsModel, value: self.settingsService.currentSettings)
+        guard let settings = self.settingsModel else { return }
+        settings.changeActiveStateForResource(index: index, isActive: isActive)
+        self.settingsService.saveSettingsInfo(model: settings)
     }
     
     func setArticlesShowMode(modeIndex: Int) {
-        let mode = ShowModes.allCases[modeIndex]
-        self.settingsService.currentSettings?.mode = mode
-        self.userDefaultsService.encodeValue(forKey: .settingsModel, value: self.settingsService.currentSettings)
+        guard let settings = self.settingsModel else { return }
+        settings.changeShowMode(modeIndex: modeIndex)
+        self.settingsService.saveSettingsInfo(model: settings)
     }
 }

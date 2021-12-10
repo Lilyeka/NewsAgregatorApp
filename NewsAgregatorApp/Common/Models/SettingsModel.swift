@@ -12,10 +12,37 @@ struct ShowResources: Codable {
     var isActive: Bool
 }
 
-struct SettingsModel: Codable {
+class SettingsModel: Codable {
     var mode: ShowModes
     var resourses: [ShowResources]
     var updatingRate: Int
+    
+    init(mode: ShowModes, resourses: [ShowResources], updatingRate: Int) {
+        self.mode = mode
+        self.resourses = resourses
+        self.updatingRate = updatingRate
+    }
+    
+    func getEndpointsAndParsers() -> [(EndpointProtocol,ParserProtocol)]? {
+        let endpoints = self.resourses.map({ resource in
+            return ( resource.resource.getResourceEndPoint(),
+                     resource.resource.getResourceParser())
+        })
+        return endpoints
+    }
+    
+    func changeActiveStateForResource(index:Int, isActive: Bool) {
+        if index < self.resourses.count {
+            self.resourses[index].isActive = isActive
+        }
+    }
+    
+    func changeShowMode(modeIndex: Int) {
+        if modeIndex < ShowModes.allCases.count {
+            let mode = ShowModes.allCases[modeIndex]
+            self.mode = mode
+        }
+    }
 }
 
 enum ShowModes: String, CaseIterable, Codable {

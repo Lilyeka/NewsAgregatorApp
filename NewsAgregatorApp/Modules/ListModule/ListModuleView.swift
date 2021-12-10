@@ -92,8 +92,18 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: ListModuleViewInput {
     func updateView(with: SettingsModel) {
-        self.settingsModel = with
-        //tableView.reloadData()
+    
+        //   guard let settingsModel = self.settingsModel else {
+            self.settingsModel = with
+       //     return
+        //}
+        
+        // TODO: - обновляем таблицу если своя текущая модель ненулевая
+        // и не равна with
+//        if settingsModel != with {
+//            self.settingsModel = with
+//            tableView.reloadData()
+//        }
     }
     
     func updateView(with: [ListViewModel]) {

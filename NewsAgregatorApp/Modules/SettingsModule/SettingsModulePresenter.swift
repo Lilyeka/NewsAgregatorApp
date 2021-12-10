@@ -20,6 +20,7 @@ class SettingsModulePresenter: SettingsModuleViewOutput, SettingsModuleInteracto
         self.view = view
         self.interactor = interactor
     }
+    
     //MARK: -SettingsModuleViewOutput
     func viewDidLoad() {
         self.interactor?.getSettings()

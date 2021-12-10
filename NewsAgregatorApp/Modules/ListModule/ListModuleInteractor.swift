@@ -29,13 +29,14 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     let settingsService: SettingsServiceProtocol = SettingsService.shared
     
     func getSettings() {
-        settingsService.getSettingsInfo()
+        self.settingsService.getSettingsInfo()
         guard let settingsModel = settingsService.currentSettings else { return }
         self.presenter?.settingsRecieved(settingsModel)
     }
     
     func getListModels() {
-        guard let endpoints = settingsService.getEndpointsAndParsers() else { return }
+       guard let settingsModel = settingsService.currentSettings,
+             let endpoints = settingsModel.getEndpointsAndParsers() else { return }
         articleService.getArticles(endpoints: endpoints) { [weak self] articles, error in
             if let strongSelf = self {
                 let listViewModels = articles?.articles.map {
