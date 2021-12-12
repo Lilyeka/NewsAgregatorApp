@@ -22,7 +22,7 @@ class ListTableViewCell: UITableViewCell {
             self.subTitleLabel.attributedText = viewModel.subTitle
             self.descriptionLabel.attributedText = viewModel.description
             self.markImageView.image = viewModel.hasBeenReadImage
-            self.markImageView.isHidden = !viewModel.hasBeenRead
+            self.markImageView.isHidden = !viewModel.readMark
         }
     }
     var isExtendedMode: Bool? {

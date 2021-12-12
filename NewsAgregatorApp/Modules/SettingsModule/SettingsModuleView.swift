@@ -83,15 +83,15 @@ extension SettingsViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.reuseIdentifier, for: indexPath) as? SwitchTableViewCell else { return UITableViewCell() }
             let viewModel = self.viewModel?.resources[indexPath.row]
             cell.viewModel = viewModel
-            cell.onSwitchChanged = { [unowned self] isOn in
-                self.presenter?.switchChanged(index: indexPath.row, isActive: isOn)
+            cell.onSwitchChanged = { [weak self] isOn in
+                self?.presenter?.switchChanged(index: indexPath.row, isActive: isOn)
             }
             return cell
         case .modeSection:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SegmentControlTableViewCell.reuseIdentifier, for: indexPath) as? SegmentControlTableViewCell else { return UITableViewCell() }
             cell.viewModel = self.viewModel?.mode
-            cell.onSegmentChanged = { [unowned self] selectedIndex in
-                self.presenter?.segmentControlChanged(index: selectedIndex)
+            cell.onSegmentChanged = { [weak self] selectedIndex in
+                self?.presenter?.segmentControlChanged(index: selectedIndex)
             }
             return cell
         case .none:

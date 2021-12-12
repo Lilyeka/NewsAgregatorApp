@@ -120,5 +120,4 @@ extension ListViewController: ListModuleViewInput {
         self.listViewModels?[index] = with
         self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
-    
 }

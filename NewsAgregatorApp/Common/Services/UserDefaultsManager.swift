@@ -9,6 +9,7 @@ import UIKit
 
 enum UserDefaultsKey: String, CaseIterable {
     case settingsModel
+    case readMarks
 }
 
 protocol UserDefaultsManagerProtocol {
@@ -16,7 +17,7 @@ protocol UserDefaultsManagerProtocol {
     func readValue<T>(forKey key: UserDefaultsKey) -> T?
     func readValue<T: Decodable>(type: T.Type, forKey key: UserDefaultsKey) -> T?
     func saveValue(forKey key: UserDefaultsKey, value: Any)
-    func setValue<T: Encodable>(forKey key: UserDefaultsKey, value: T)
+    func archiveValue<T: Encodable>(forKey key: UserDefaultsKey, value: T)
     func removeUserInfo()
 }
 
@@ -37,7 +38,7 @@ extension UserDefaultsManagerProtocol {
         return try? decoder.decode(T.self, from: data)
     }
     
-    func setValue<T: Encodable>(forKey key: UserDefaultsKey, value: T) {
+    func archiveValue<T: Encodable>(forKey key: UserDefaultsKey, value: T) {
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(value) else { return }
         UserDefaults.standard.set(data, forKey: key.rawValue)

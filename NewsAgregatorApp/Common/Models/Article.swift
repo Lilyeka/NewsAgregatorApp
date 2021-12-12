@@ -20,8 +20,7 @@ struct Article: Decodable {
     let url: String?
     let urlToImage: String?
     let publishedAt: String
-    var resource: Resources? 
-    var hasBeenRead: Bool?
+    var resource: Resources?
     
     static func getArticle(details: [String: Any]) -> Article {
         let articleSource = ArticleSource(id: "?", name: "???")

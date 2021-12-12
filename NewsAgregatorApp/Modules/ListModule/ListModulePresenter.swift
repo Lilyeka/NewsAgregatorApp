@@ -45,7 +45,7 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractor
         self.view?.updateView(with: settings)
     }
     
-    func listItemsMarkedAsRread(viewModel: ListViewModel, index: Int) {
+    func listItemsMarkedAsRead(viewModel: ListViewModel, index: Int) {
         self.view?.updateView(with: viewModel, index: index)
     }
     // MARK: - ListRouterOutput

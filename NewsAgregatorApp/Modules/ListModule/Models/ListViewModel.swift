@@ -14,6 +14,6 @@ struct ListViewModel {
     var subTitle: NSAttributedString
     var description: NSAttributedString
     var hasBeenReadImage: UIImage? = UIImage(named: "read_mark")
-    var hasBeenRead: Bool = false
+    var readMark: Bool
     var url: String
 }

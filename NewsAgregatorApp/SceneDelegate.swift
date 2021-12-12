@@ -17,13 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.backgroundColor = .white
         self.window?.windowScene = windowScene
         
-        guard let hasBeenReadFileURL = Bundle.main.url(forResource: "HasBeenReadArticles", withExtension: "plist") else { return }
-         
-        let manager = PListManager()
-      
-        var values = manager.getStrings(withPlistAt: hasBeenReadFileURL
-        )
-        
         let rootVC = RootViewController()
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()

@@ -22,14 +22,9 @@ class SettingsModel: Codable {
         self.resourses = resourses
         self.updatingRate = updatingRate
     }
-    
-    func getEndpointsAndParsers() -> [(Resources, EndpointProtocol, ParserProtocol)]? {
-        let endpoints = self.resourses.map({ resource in
-            return ( resource.resource,
-                     resource.resource.getResourceEndPoint(),
-                     resource.resource.getResourceParser())
-        })
-        return endpoints
+        
+    func getActiveResources() -> [Resources]? {
+        return self.resourses.filter{ $0.isActive }.map{ $0.resource }
     }
     
     func changeActiveStateForResource(index:Int, isActive: Bool) {
@@ -55,12 +50,16 @@ enum ShowModes: String, CaseIterable, Codable {
     }
 }
 
-enum Resources: String, Codable {
+protocol ResourcesProtocol {
+    func getResourceEndpoint() -> EndpointProtocol
+}
+
+enum Resources: String, Codable, ResourcesProtocol {
     case lenta = "Lenta.ru"
     case gazeta = "Gazeta.ru"
     case newsapi = "Newsapi.org"
     
-    func getResourceEndPoint() -> EndpointProtocol {
+    func getResourceEndpoint() -> EndpointProtocol {
         var endpoint: EndpointProtocol
         switch self {
         case .lenta:

@@ -43,7 +43,7 @@ class SettingsService: SettingsServiceProtocol {
     }
     
     func saveSettingsInfo(model: SettingsModel) {
-        self.userDefaultsService.setValue(forKey: .settingsModel, value: model)
+        self.userDefaultsService.archiveValue(forKey: .settingsModel, value: model)
     }
     
     fileprivate func getSavedSettingsInfo() -> SettingsModel? {
