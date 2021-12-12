@@ -11,6 +11,7 @@ class JSONParserSevice: NSObject, ParserProtocol {
     
     func parseData(data: Data, completion: @escaping (([Article]) -> Void)) {
         let jsonDecoder = JSONDecoder()
+        jsonDecoder.dateDecodingStrategy = .iso8601
         do {
             if let jsonString = String(data: data, encoding: String.Encoding.utf8) {
                print(jsonString)

@@ -19,7 +19,7 @@ struct Article: Decodable {
     let description: String?
     let url: String?
     let urlToImage: String?
-    let publishedAt: String
+    let publishedAt: Date
     var resource: Resources?
     
     static func getArticle(details: [String: Any]) -> Article {
@@ -30,9 +30,11 @@ struct Article: Decodable {
         let title = details["title"] as? String ?? ""
         let description = details["description"] as? String ?? ""
         let url = details["link"] as? String ?? ""
-        let publishedAt = details["pubDate"] as? String ?? ""
         
-        return Article(source: articleSource, title: title, description: description, url: url, urlToImage: urlToImage, publishedAt: publishedAt, resource: nil)
+        let publishedAtString = details["pubDate"] as? String ?? ""
+        let publishedAtDate = publishedAtString.getDate() ?? Date()
+        
+        return Article(source: articleSource, title: title, description: description, url: url, urlToImage: urlToImage, publishedAt: publishedAtDate, resource: nil)
     }
 }
 

@@ -52,7 +52,8 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
        
         articleService.getArticles(endpoints: resources) { [weak self] articles, error in
             guard let self = self,
-                  let articlesArray = articles?.articles else { return }
+                  let articlesArray = articles?.articles.sorted(by: { $0.publishedAt < $1.publishedAt
+                  }) else { return }
             self.buildArticlesDictionary(articles: articlesArray)
             
             self.cleanNotActualReadMarks(settings: settingsModel, articles: articlesArray)
@@ -77,6 +78,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     // MARK: - Private methods
     
     fileprivate func buildListViewModels(articles: [Article], readMarksModel: ReadUrls) -> [ListViewModel] {
+  
         let listViewModels = articles.map {
             self.buildViewModel(article: $0, readMarksModel: readMarksModel)
         }
