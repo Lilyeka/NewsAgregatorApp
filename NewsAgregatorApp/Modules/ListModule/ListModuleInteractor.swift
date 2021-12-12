@@ -36,7 +36,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     var articlesDictionary: Dictionary<String, Article>?
     var articlesArray: [Article]?
-
+    
     var settingsModel: SettingsModel?
     
     func getSettings() {
@@ -49,18 +49,21 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     func getListModels() {
         guard let settingsModel = settingsService.currentSettings,
               let resources = settingsModel.getActiveResources() else { return }
-        
+       
         articleService.getArticles(endpoints: resources) { [weak self] articles, error in
             guard let self = self,
                   let articlesArray = articles?.articles else { return }
             self.buildArticlesDictionary(articles: articlesArray)
-    
+            
+            self.cleanNotActualReadMarks(settings: settingsModel, articles: articlesArray)
+            let readMarksModel = self.readUrlsService.getReadUrls()
+            
             DispatchQueue.main.async {
-                self.presenter?.listItemsRecieved(self.buildListViewModels(articles: articlesArray) )
+                self.presenter?.listItemsRecieved(self.buildListViewModels(articles: articlesArray, readMarksModel: readMarksModel))
             }
         }
     }
-                
+    
     func markAsRead(url: URL, index: Int) {
         guard let dict = self.articlesDictionary,
               let article = dict[url.absoluteString],
@@ -71,20 +74,21 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
         self.presenter?.listItemsMarkedAsRead(viewModel: self.listViewModelBuilder.getViewModel(from: article, readMark: true), index: index)
     }
     
-    fileprivate func buildListViewModels(articles: [Article]) -> [ListViewModel] {
+    // MARK: - Private methods
+    
+    fileprivate func buildListViewModels(articles: [Article], readMarksModel: ReadUrls) -> [ListViewModel] {
         let listViewModels = articles.map {
-            self.buildViewModel(article: $0)
+            self.buildViewModel(article: $0, readMarksModel: readMarksModel)
         }
         return listViewModels
     }
     
-    fileprivate func buildViewModel(article: Article) -> ListViewModel {
-        let readMarksModel = self.readUrlsService.getReadUrls()
+    fileprivate func buildViewModel(article: Article, readMarksModel: ReadUrls) -> ListViewModel {
         var readMark = false
         if let resource = article.resource,
            let url = article.url,
            let _ = readMarksModel.firstIndex(resource: resource, value: url)  {
-           readMark = true
+            readMark = true
         }
         return self.listViewModelBuilder.getViewModel(from: article, readMark: readMark)
     }
@@ -99,18 +103,20 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
         self.articlesDictionary = dict
     }
     
-    //    func setRead() {
-    //        guard var settingsModel = self.settingsModel,
-    //              var articlesArray = self.articlesArray,
-    //              var readUrlsModel = self.readUrlsModel else {
-    //            return
-    //        }
-    //
-    //        var activeResources = settingsModel.resourses.filter { $0.isActive }.map{ $0.resource }
-    //        activeResources.forEach { resource in
-    //            var articlesUrls = Set(articlesArray.filter{ $0.resource == resource }.map { $0.url })
-    //            var readUrls = Set(arrayLiteral: readUrlsModel.urls[resource])
-    //
-    //        }
-    //    }
+    fileprivate func cleanNotActualReadMarks(settings: SettingsModel, articles: [Article]) {
+        let readMarksModel = self.readUrlsService.getReadUrls()
+        guard let activeResources = settings.getActiveResources() else { return }
+        
+        activeResources.forEach { resource in
+            guard let readUrls = readMarksModel.urls[resource] else { return }
+            let articlesUrls = articles.filter{ $0.resource == resource }.compactMap { $0.url }
+            
+            let readUrlsSet:Set<String> = Set(readUrls)
+  
+            let urlsToDeleteFromSaved = readUrlsSet.subtracting(articlesUrls)
+            urlsToDeleteFromSaved.forEach { url in
+                readUrlsService.removeAsRead(resource: resource, url: url)
+            }
+        }
+    }
 }

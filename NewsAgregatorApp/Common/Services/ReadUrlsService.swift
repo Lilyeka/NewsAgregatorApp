@@ -34,6 +34,6 @@ class ReadUrlsService: ReadUrlsServiceProtocol {
     func removeAsRead(resource: Resources, url: String) {
         let readUrlsModel = getReadUrls()
         readUrlsModel.removeValue(resource: resource, value: url)
-        userDefaultsService.saveValue(forKey: .readMarks, value: readUrlsModel)
+        userDefaultsService.archiveValue(forKey: .readMarks, value: readUrlsModel)
     }
 }

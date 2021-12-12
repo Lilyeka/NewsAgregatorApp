@@ -58,9 +58,6 @@ class ArticlesService: ArticlesServiceProtocol {
         var articlesCopy = articles
         for index in articlesCopy.indices {
             articlesCopy[index].resource = resource
-//            guard let url = articlesCopy[index].url,
-//                  let _ = readMarkModel.firstIndex(resource: resource, value: url) else { continue }
-//            articlesCopy[index].readMark = true
         }
         return articlesCopy
     }
