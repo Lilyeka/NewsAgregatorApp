@@ -56,7 +56,6 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     // MARK - Actions
     @objc func timerNotificationAction(_ notfication: Notification) {
-        print("ОБНОВИТЬ НОВОСТИ !!!")
         self.getSettings()
         self.getListModels()
     }

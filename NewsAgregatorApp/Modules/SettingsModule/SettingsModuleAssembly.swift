@@ -26,6 +26,5 @@ enum SettingsModuleAssembly {
         )
         interactor.presenter = presenter
         view.presenter = presenter
-//        router.viewController = view
     }
 }

@@ -14,7 +14,7 @@ protocol SettingsServiceProtocol {
 
 class SettingsService: SettingsServiceProtocol {
 
-    var userDefaultsService: UserDefaultsManagerProtocol //= UserDefaultsManager(userDefaults: UserDefaults.standard)
+    var userDefaultsService: UserDefaultsManagerProtocol
   
     init(userDefaultsService: UserDefaultsManagerProtocol) {
         self.userDefaultsService = userDefaultsService

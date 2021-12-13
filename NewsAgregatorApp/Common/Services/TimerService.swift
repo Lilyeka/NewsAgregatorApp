@@ -22,7 +22,6 @@ class TimerService {
     var startTimerTime: Date? {
         didSet {
             self.updateAlarmTimerTime()
-            print(" ------ alarmTimerTime = \( self.alarmTimerTime)")
         }
     }
     
@@ -57,7 +56,7 @@ class TimerService {
         self.startTimerTime = sender.fireDate
         notificationCenter.post(name: NSNotification.Name.timerNotification,
                                         object: nil)
-        print(" ALARM ALARM ALARM ALARM ALARM ALARM \(sender.fireDate)")
+        //print(" ALARM ALARM ALARM ALARM ALARM ALARM \(sender.fireDate)")
     }
     
     @objc func appMovedToBackgroundAction(_ notification: Notification?) {

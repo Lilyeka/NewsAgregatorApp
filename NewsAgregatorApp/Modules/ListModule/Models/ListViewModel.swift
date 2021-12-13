@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct ListViewModel {
-    var imageUrlString: String //UIImage(named: "default_list_image")
+    var imageUrlString: String
     var title: NSAttributedString
     var subTitle: NSAttributedString
     var description: NSAttributedString

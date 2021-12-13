@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ListModuleViewOutput: NSObject {
-    func viewDidLoad()
+   
     func listItemDidSelect(item: ListViewModel, index: Int)
 }
 
@@ -17,11 +17,12 @@ class ListViewController: UIViewController {
     var presenter: ListModuleViewOutput?
     
     fileprivate var tableView: UITableView!
+    fileprivate var activityIndicator: UIActivityIndicatorView!
     
     var listViewModels: [ListViewModel]?
     var settingsModel: SettingsModel?
-    var isfirstWillAppear = false
-    
+  
+    // MARK: - Lifecycle
     init(presentationStyle: UIModalPresentationStyle) {
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = presentationStyle
@@ -37,16 +38,8 @@ class ListViewController: UIViewController {
         self.setupUI()
         self.setupLayout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if isfirstWillAppear == false {
-            print("viewDidAppear")
-            self.presenter?.viewDidLoad()
-            isfirstWillAppear = true
-        }
-    }
-    
+        
+    // MARK: - Private methods
     fileprivate func setupUI() {
         self.tableView = UITableView()
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +48,13 @@ class ListViewController: UIViewController {
         self.tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60.0
-        self.view.addSubview(tableView)
+        self.view.addSubview(self.tableView)
+        
+        self.activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.center = view.center
+        self.view.addSubview(self.activityIndicator)
     }
     
     fileprivate func setupLayout() {
@@ -67,12 +66,12 @@ class ListViewController: UIViewController {
         ])
     }
 }
-
+// MARK: - UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as? ListTableViewCell else { return UITableViewCell() }
         
-        let viewModel = listViewModels?[indexPath.row]
+        let viewModel = self.listViewModels?[indexPath.row]
         if let settingsModel = settingsModel {
             cell.isExtendedMode = settingsModel.mode.isExtendedMode()
         }
@@ -87,16 +86,17 @@ extension ListViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listViewModels?.count ?? 0
+        return self.listViewModels?.count ?? 0
     }
 }
 
+// MARK: - ListModuleViewInput
 extension ListViewController: ListModuleViewInput {
     
     func updateView(with: SettingsModel) {
-        
         //   guard let settingsModel = self.settingsModel else {
         self.settingsModel = with
         //     return
@@ -111,12 +111,12 @@ extension ListViewController: ListModuleViewInput {
     }
     
     func updateView(with: [ListViewModel]) {
+        self.activityIndicator.stopAnimating()
         self.listViewModels = with
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func updateView(with: ListViewModel, index: Int) {
-        //guard var listViewModels = listViewModels else { return }
         self.listViewModels?[index] = with
         self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }

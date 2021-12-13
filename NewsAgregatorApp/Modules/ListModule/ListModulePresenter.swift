@@ -25,12 +25,7 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractor
         self.router = router
     }
         
-    // MARK: - ListModuleViewOutput
-    func viewDidLoad() {
-        //self.interactor.getSettings()
-        //self.interactor.getListModels()
-    }
-    
+    // MARK: - ListModuleViewOutput    
     func listItemDidSelect(item: ListViewModel, index: Int) {
         guard let itemUrl = URL(string: item.url) else { return }
         self.router.openURL(url: itemUrl, index: index)

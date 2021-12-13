@@ -22,7 +22,7 @@ class ArticlesService: ArticlesServiceProtocol {
     }
     
     func getArticles(endpoints: [(Resources)], completion: @escaping (Articles?, Error?) -> Void) {
-        let readMarksModel = readMarksService.getReadUrls()
+        
         var totalArticles = [Article]()
         let group = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)

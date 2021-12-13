@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
     
     fileprivate var tableView: UITableView!
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -28,7 +29,7 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
         self.setupLayout()
         self.presenter?.viewDidLoad()
     }
-    
+    //MARK: - Private methods
     fileprivate func setupUI() {
         self.tableView = UITableView()
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +58,7 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
         self.tableView.reloadData()
     }
 }
-
+//MARK: - UITableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sectionItem = self.viewModel?.sections[section] else { return nil }

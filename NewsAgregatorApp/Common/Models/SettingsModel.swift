@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct ShowResources: Codable {
-    var resource: Resources
-    var isActive: Bool
-}
 
 class SettingsModel: Codable {
     var mode: ShowModes
@@ -41,6 +37,11 @@ class SettingsModel: Codable {
     }
 }
 
+struct ShowResources: Codable {
+    var resource: Resources
+    var isActive: Bool
+}
+
 enum ShowModes: String, CaseIterable, Codable {
     case normalMode = "Обычный"
     case extentMode = "Расширенный"
@@ -49,47 +50,3 @@ enum ShowModes: String, CaseIterable, Codable {
         return self == .extentMode ? true : false
     }
 }
-
-protocol ResourcesProtocol {
-    func getResourceEndpoint() -> EndpointProtocol
-}
-
-enum Resources: String, Codable, ResourcesProtocol {
-    case lenta = "Lenta.ru"
-    case gazeta = "Gazeta.ru"
-    case newsapi = "Newsapi.org"
-    
-    func getResourceEndpoint() -> EndpointProtocol {
-        var endpoint: EndpointProtocol
-        switch self {
-        case .lenta:
-            endpoint = Endpoint(httpMethod: "GET",
-                                baseURLString: "https://lenta.ru",
-                                path: "/rss",
-                                urlQueryItems: nil)
-        case .gazeta:
-            endpoint = Endpoint(httpMethod: "GET",
-                                baseURLString: "https://www.gazeta.ru",
-                                path: "/export/rss/lenta.xml",
-                                urlQueryItems: nil)
-        case .newsapi:
-            endpoint = Endpoint(httpMethod: "GET",
-                                baseURLString: "https://newsapi.org/v2",
-                                path: "/top-headlines",
-                                urlQueryItems: [
-                                    (name: "country", value: "ru"),
-                                    (name: "apiKey", value: Constants.newsApiOrgKey)
-                                ])
-        }
-        return endpoint
-    }
-    
-    func getResourceParser() -> ParserProtocol {
-        var parser: ParserProtocol = XMLParserSevice()
-        if self == .newsapi {
-            parser = JSONParserSevice()
-        }
-        return parser
-    }
-}
-
