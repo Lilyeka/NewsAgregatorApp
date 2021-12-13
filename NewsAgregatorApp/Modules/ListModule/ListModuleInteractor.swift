@@ -22,34 +22,55 @@ protocol ListModuleInteractorOutput: NSObject {
 class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     
     weak var presenter: ListModuleInteractorOutput?
-    //TODO - сделать ListModuleInteractorAssembly c функцией create() и в ней инитить интерактор со всеми его зависимостями
     
-    let listViewModelBuilder: ListViewModelBuilderProtocol = ListViewModelBuilder()
+    var listViewModelBuilder: ListViewModelBuilderProtocol
+    var articleService: ArticlesServiceProtocol
+    var settingsService: SettingsServiceProtocol
+    var readUrlsService: ReadUrlsServiceProtocol
+    var userDefaultsService: UserDefaultsManagerProtocol
     
-    let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager(), readMarksService: ReadUrlsService())
-    
-    let settingsService: SettingsServiceProtocol = SettingsService.shared
-    
-    let userDefaultsService: UserDefaultsManager = UserDefaultsManager(userDefaults: UserDefaults.standard)
-    
-    let readUrlsService: ReadUrlsServiceProtocol = ReadUrlsService()
+    let notificationCenter = NotificationCenter.default
     
     var articlesDictionary: Dictionary<String, Article>?
-    var articlesArray: [Article]?
-    
     var settingsModel: SettingsModel?
     
+    init(listViewModelBuilder: ListViewModelBuilderProtocol,
+         articleService: ArticlesServiceProtocol,
+         settingsService: SettingsServiceProtocol,
+         readUrlsService: ReadUrlsServiceProtocol,
+         userDefaultsService: UserDefaultsManagerProtocol) {
+        
+        self.listViewModelBuilder = listViewModelBuilder
+        self.articleService = articleService
+        self.settingsService = settingsService
+        self.readUrlsService = readUrlsService
+        self.userDefaultsService = userDefaultsService
+        
+        super.init()
+        notificationCenter.addObserver(self, selector: #selector(timerNotificationAction(_:)), name: Notification.Name.timerNotification, object: nil)
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: Notification.Name.timerNotification, object: nil)
+    }
+    
+    // MARK - Actions
+    @objc func timerNotificationAction(_ notfication: Notification) {
+        print("ОБНОВИТЬ НОВОСТИ !!!")
+        self.getSettings()
+        self.getListModels()
+    }
+    
     func getSettings() {
-        self.settingsService.getSettingsInfo()
-        guard let settingsModel = settingsService.currentSettings else { return }
+        let settingsModel = self.settingsService.getSettingsInfo()
         self.settingsModel = settingsModel
         self.presenter?.settingsRecieved(settingsModel)
     }
     
     func getListModels() {
-        guard let settingsModel = settingsService.currentSettings,
+        guard let settingsModel = self.settingsModel,
               let resources = settingsModel.getActiveResources() else { return }
-       
+        
         articleService.getArticles(endpoints: resources) { [weak self] articles, error in
             guard let self = self,
                   let articlesArray = articles?.articles.sorted(by: { $0.publishedAt < $1.publishedAt
@@ -78,7 +99,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
     // MARK: - Private methods
     
     fileprivate func buildListViewModels(articles: [Article], readMarksModel: ReadUrls) -> [ListViewModel] {
-  
+        
         let listViewModels = articles.map {
             self.buildViewModel(article: $0, readMarksModel: readMarksModel)
         }
@@ -114,7 +135,7 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
             let articlesUrls = articles.filter{ $0.resource == resource }.compactMap { $0.url }
             
             let readUrlsSet:Set<String> = Set(readUrls)
-  
+            
             let urlsToDeleteFromSaved = readUrlsSet.subtracting(articlesUrls)
             urlsToDeleteFromSaved.forEach { url in
                 readUrlsService.removeAsRead(resource: resource, url: url)

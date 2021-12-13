@@ -10,6 +10,10 @@ import UIKit
 enum UserDefaultsKey: String, CaseIterable {
     case settingsModel
     case readMarks
+    case startTimerTime
+    case alarmTimerTime
+    case stopTimerTime
+    case wakeUpTimerTime
 }
 
 protocol UserDefaultsManagerProtocol {

@@ -16,8 +16,14 @@ enum SettingsModuleAssembly {
     }
     
     private static func injectProperties(in view: SettingsViewController) {
-        let interactor = SettingsModuleInteractor(settingsService: SettingsService.shared, viewModelsBuilder: SettingsViewModelBuilder())
-        let presenter = SettingsModulePresenter(view: view, interactor: interactor)
+        let interactor = SettingsModuleInteractor(
+            settingsService: SettingsService(userDefaultsService: UserDefaultsManager(userDefaults: UserDefaults.standard)),
+            viewModelsBuilder: SettingsViewModelBuilder()
+        )
+        let presenter = SettingsModulePresenter(
+            view: view,
+            interactor: interactor
+        )
         interactor.presenter = presenter
         view.presenter = presenter
 //        router.viewController = view

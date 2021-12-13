@@ -8,38 +8,26 @@
 import Foundation
 
 protocol SettingsServiceProtocol {
-    //TODO убрать set оставить только get
-    var currentSettings: SettingsModel? { get set }
-    
     func getSettingsInfo() -> SettingsModel
     func saveSettingsInfo(model: SettingsModel)
 }
 
 class SettingsService: SettingsServiceProtocol {
-    
-    
-    //TODO:
-    // избавиться от синглтона, заменить на нотификейшн ценрт (оповещение обю изменениях модели настроек будет приходить в эркна настроек, экран списка и таймер обновления)
-    static let shared: SettingsServiceProtocol = SettingsService(settings: nil)
-    
-    var userDefaultsService: UserDefaultsManagerProtocol = UserDefaultsManager(userDefaults: UserDefaults.standard)
-    
-    var currentSettings: SettingsModel?
-    
-    private init(settings: SettingsModel?) {
-        self.currentSettings = settings
+
+    var userDefaultsService: UserDefaultsManagerProtocol //= UserDefaultsManager(userDefaults: UserDefaults.standard)
+  
+    init(userDefaultsService: UserDefaultsManagerProtocol) {
+        self.userDefaultsService = userDefaultsService
     }
     
     func getSettingsInfo() -> SettingsModel {
-        if let settings = userDefaultsService.readValue(type: SettingsModel.self, forKey: .settingsModel) {
-            self.currentSettings = settings
+        if let settings = self.getSavedSettingsInfo() {
+            return settings
         } else {
-            self.currentSettings = getDefaultSettingsInfo()
-            if let curSet = self.currentSettings {
-                self.saveSettingsInfo(model: curSet)
-            }
+            let settings = getDefaultSettingsInfo()
+            self.saveSettingsInfo(model: settings)
+            return settings
         }
-        return self.currentSettings ?? getDefaultSettingsInfo()
     }
     
     func saveSettingsInfo(model: SettingsModel) {

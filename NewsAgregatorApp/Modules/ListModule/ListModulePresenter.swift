@@ -27,8 +27,8 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractor
         
     // MARK: - ListModuleViewOutput
     func viewDidLoad() {
-        self.interactor.getSettings()
-        self.interactor.getListModels()
+        //self.interactor.getSettings()
+        //self.interactor.getListModels()
     }
     
     func listItemDidSelect(item: ListViewModel, index: Int) {
