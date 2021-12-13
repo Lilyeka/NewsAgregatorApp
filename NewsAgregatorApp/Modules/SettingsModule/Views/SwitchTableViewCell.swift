@@ -9,7 +9,7 @@ import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
     
-    var onSwitchChanged:((Bool)->Void)?
+    var onSwitchChanged:((Bool) -> Void)?
 
     var viewModel: ResourceViewModel? {
         didSet {

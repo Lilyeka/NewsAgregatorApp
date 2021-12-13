@@ -27,7 +27,7 @@ class TimerService {
     }
     
     // MARK: - Init
-    init() {
+    private init() {
         self.startTimer(fireAt: Date())
         self.addObservers()
     }

@@ -34,6 +34,10 @@ class SettingsModulePresenter: SettingsModuleViewOutput, SettingsModuleInteracto
         self.interactor?.setArticlesShowMode(modeIndex: index)
     }
     
+    func sliderChanged(value: Int) {
+        self.interactor?.setTimerInterval(interval: value)
+    }
+    
     //MARK: -SettingsModuleInteractorOutput
     func settingsRecieved(settings: SettingsViewModel) {
         self.view?.updateView(with: settings)

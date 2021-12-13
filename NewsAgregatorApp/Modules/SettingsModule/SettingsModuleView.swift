@@ -11,6 +11,7 @@ protocol SettingsModuleViewOutput {
     func viewDidLoad()
     func switchChanged(index: Int, isActive: Bool)
     func segmentControlChanged(index: Int)
+    func sliderChanged(value: Int)
 }
 
 class SettingsViewController: UIViewController, SettingsModuleViewInput {
@@ -32,10 +33,12 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
         self.tableView = UITableView()
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.dataSource = self
-        self.tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.reuseIdentifier)
-        self.tableView.register(SegmentControlTableViewCell.self, forCellReuseIdentifier: SegmentControlTableViewCell.reuseIdentifier)
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60.0
+        
+        self.tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.reuseIdentifier)
+        self.tableView.register(SegmentControlTableViewCell.self, forCellReuseIdentifier: SegmentControlTableViewCell.reuseIdentifier)
+        self.tableView.register(SliderControlTableViewCell.self, forCellReuseIdentifier: SliderControlTableViewCell.reuseIdentifier)
         self.view.addSubview(tableView)
     }
     
@@ -68,6 +71,8 @@ extension SettingsViewController: UITableViewDataSource {
             return 1
         case .resoursesSection:
             return viewModel?.resources.count ?? 0
+        case .updIntervalSection:
+            return 1
         }
     }
     
@@ -92,6 +97,12 @@ extension SettingsViewController: UITableViewDataSource {
             cell.viewModel = self.viewModel?.mode
             cell.onSegmentChanged = { [weak self] selectedIndex in
                 self?.presenter?.segmentControlChanged(index: selectedIndex)
+            }
+            return cell
+        case .updIntervalSection:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SliderControlTableViewCell.reuseIdentifier, for: indexPath) as? SliderControlTableViewCell else { return UITableViewCell() }
+            cell.onSliderChanged = { [weak self] sliderValue in
+                self?.presenter?.sliderChanged(value: sliderValue)
             }
             return cell
         case .none:

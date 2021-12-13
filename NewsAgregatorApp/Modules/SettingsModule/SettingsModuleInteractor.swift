@@ -9,8 +9,9 @@ import Foundation
 
 protocol SettingsModuleInteractorInput {
     func getSettings()
-    func setResourceActiveState(index:Int, isActive: Bool)
-    func setArticlesShowMode(modeIndex:Int)
+    func setResourceActiveState(index: Int, isActive: Bool)
+    func setArticlesShowMode(modeIndex: Int)
+    func setTimerInterval(interval: Int)
 }
 
 protocol SettingsModuleInteractorOutput: AnyObject {
@@ -18,8 +19,9 @@ protocol SettingsModuleInteractorOutput: AnyObject {
 }
 
 class SettingsModuleInteractor: SettingsModuleInteractorInput {
+    let notificationCenter = NotificationCenter.default
     
-    var settingsService: SettingsServiceProtocol
+    let settingsService: SettingsServiceProtocol
     let viewModelsBuilder: SettingsViewModelBuilderProtocol
     
     weak var presenter: SettingsModuleInteractorOutput?
@@ -48,5 +50,12 @@ class SettingsModuleInteractor: SettingsModuleInteractorInput {
         guard let settings = self.settingsModel else { return }
         settings.changeShowMode(modeIndex: modeIndex)
         self.settingsService.saveSettingsInfo(model: settings)
+    }
+    
+    func setTimerInterval(interval: Int) {
+        guard let settings = self.settingsModel else { return }
+        settings.updatingInterval = interval
+        self.settingsService.saveSettingsInfo(model: settings)
+        notificationCenter.post(name: Notification.Name.timerIntervalNotification, object: interval)
     }
 }

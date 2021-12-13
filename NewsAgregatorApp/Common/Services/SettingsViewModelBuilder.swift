@@ -20,8 +20,12 @@ struct SettingsViewModelBuilder: SettingsViewModelBuilderProtocol {
             return ResourceViewModel(title: attributedTitleString, active: resource.isActive)
         }
         
-        let viewModel = SettingsViewModel(resources: resViewModels, mode: settings.mode, sections: [.resoursesSection, .modeSection])
-        return viewModel
+        return SettingsViewModel(
+            resources: resViewModels,
+            mode: settings.mode,
+            timeInterval: settings.updatingInterval,
+            sections: [.resoursesSection, .modeSection, .updIntervalSection])
+        
     }
     
     private func getAttributedString(string: String, fontSize: CGFloat, color: UIColor, aligment: NSTextAlignment) -> NSAttributedString {

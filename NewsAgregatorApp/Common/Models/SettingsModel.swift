@@ -15,12 +15,12 @@ struct ShowResources: Codable {
 class SettingsModel: Codable {
     var mode: ShowModes
     var resourses: [ShowResources]
-    var updatingRate: Int
+    var updatingInterval: Int
     
-    init(mode: ShowModes, resourses: [ShowResources], updatingRate: Int) {
+    init(mode: ShowModes, resourses: [ShowResources], updatingInterval: Int) {
         self.mode = mode
         self.resourses = resourses
-        self.updatingRate = updatingRate
+        self.updatingInterval = updatingInterval
     }
         
     func getActiveResources() -> [Resources]? {

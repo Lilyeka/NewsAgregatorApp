@@ -49,6 +49,6 @@ class SettingsService: SettingsServiceProtocol {
         
         return SettingsModel(mode: .extentMode,
                              resourses :resourses,
-                             updatingRate: 1)
+                             updatingInterval: 1)
     }
 }

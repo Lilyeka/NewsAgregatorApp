@@ -11,10 +11,12 @@ struct SettingsViewModel {
     enum Sections: String {
         case resoursesSection = "Источники новостей"
         case modeSection = "Режим отображения"
+        case updIntervalSection = "Приодичность обновления: (сек.)"
     }
     var resources: [ResourceViewModel]
     var mode: ShowModes
-    var sections: [Sections] = [.resoursesSection, .modeSection]
+    var timeInterval: Int
+    var sections: [Sections] = [.resoursesSection, .modeSection, .updIntervalSection]
 }
 
 struct ResourceViewModel {
