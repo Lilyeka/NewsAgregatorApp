@@ -56,7 +56,7 @@ class ListViewController: UIViewController {
         self.tableView.estimatedRowHeight = 60.0
         self.view.addSubview(self.tableView)
         
-        self.activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        self.activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.startAnimating()
         self.activityIndicator.center = view.center

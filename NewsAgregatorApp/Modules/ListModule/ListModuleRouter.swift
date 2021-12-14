@@ -22,7 +22,7 @@ class ListModuleRouter: ListRouterInput {
     weak var presenter: ListRouterOutput?
 
     func openURL(url: URL, index: Int) {
-        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        let vc = SFSafariViewController(url: url)
         self.viewController?.present(vc, animated: true) {
             self.presenter?.urlOpened(url: url, index: index)
         }

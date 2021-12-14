@@ -9,11 +9,11 @@ import UIKit
 
 enum ListModuleInteractorAssembly {
     static func create() -> ListModuleInteractor {
-        var listViewModelBuilder: ListViewModelBuilderProtocol = ListViewModelBuilder()
-        var articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager(), readMarksService: ReadUrlsService())
-        var settingsService: SettingsServiceProtocol = SettingsService(userDefaultsService: UserDefaultsManager(userDefaults: UserDefaults.standard))
-        var userDefaultsService: UserDefaultsManagerProtocol = UserDefaultsManager(userDefaults: UserDefaults.standard)
-        var readUrlsService: ReadUrlsServiceProtocol = ReadUrlsService()
+        let listViewModelBuilder: ListViewModelBuilderProtocol = ListViewModelBuilder()
+        let articleService: ArticlesServiceProtocol = ArticlesService(networkManager: NetworkManager(), readMarksService: ReadUrlsService())
+        let settingsService: SettingsServiceProtocol = SettingsService(userDefaultsService: UserDefaultsManager(userDefaults: UserDefaults.standard))
+        let userDefaultsService: UserDefaultsManagerProtocol = UserDefaultsManager(userDefaults: UserDefaults.standard)
+        let readUrlsService: ReadUrlsServiceProtocol = ReadUrlsService()
         
         let interactor = ListModuleInteractor(
             listViewModelBuilder: listViewModelBuilder,
