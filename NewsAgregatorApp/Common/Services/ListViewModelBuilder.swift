@@ -16,10 +16,10 @@ struct ListViewModelBuilder: ListViewModelBuilderProtocol  {
     func getViewModel(from model: Article, readMark: Bool) -> ListViewModel {
   
         let attributedTitleString = self.getAttributedString(string: model.title, fontSize: 20, color: .black, aligment: .left)
-        let attributedSubTitleString = self.getAttributedString(string: model.resource?.rawValue ?? "", fontSize: 16, color: .red, aligment: .right)
+        let attributedSubTitleString = self.getAttributedString(string: (model.resource?.rawValue ?? "") + " [" + model.publishedAt.ISO8601Format() + "]", fontSize: 14, color: .red, aligment: .right)
         let attributedDescriptionString = self.getAttributedString(string: model.description ?? "", fontSize: 16, color: .black, aligment: .left)
     
-        return ListViewModel(imageUrlString: model.urlToImage ?? "", title: attributedTitleString, subTitle: attributedSubTitleString, description: attributedDescriptionString, readMark: readMark, url: model.url ?? "")
+        return ListViewModel(imageUrlString: model.urlToImage ?? "", title: attributedTitleString, subTitle: attributedSubTitleString, description: attributedDescriptionString, readMark: readMark, url: model.url ?? "", publishedAt: model.publishedAt)
         
     }
     

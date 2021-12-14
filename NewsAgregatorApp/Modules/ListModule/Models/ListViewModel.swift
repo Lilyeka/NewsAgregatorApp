@@ -16,4 +16,5 @@ struct ListViewModel {
     var hasBeenReadImage: UIImage? = UIImage(named: "read_mark")
     var readMark: Bool
     var url: String
+    let publishedAt: Date
 }

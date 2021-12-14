@@ -61,7 +61,6 @@ class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .justified
-        label.backgroundColor = .green
         return label
     }()
     
@@ -70,14 +69,12 @@ class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .right
-        label.backgroundColor = .gray
         return label
     }()
     
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
         return view
     }()
     

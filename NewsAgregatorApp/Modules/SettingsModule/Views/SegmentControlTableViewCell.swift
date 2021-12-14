@@ -31,7 +31,6 @@ class SegmentControlTableViewCell: UITableViewCell {
         let control = UISegmentedControl()
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentTintColor = UIColor.gray
-        control.tintColor = UIColor.yellow
         control.backgroundColor = UIColor.white
         control.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
         return control

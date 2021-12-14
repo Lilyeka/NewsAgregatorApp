@@ -29,6 +29,12 @@ class SettingsViewController: UIViewController, SettingsModuleViewInput {
         self.setupLayout()
         self.presenter?.viewDidLoad()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("SettingsViewController will disappear")
+    }
+    
     //MARK: - Private methods
     fileprivate func setupUI() {
         self.tableView = UITableView()

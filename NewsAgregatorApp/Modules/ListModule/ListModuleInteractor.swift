@@ -8,6 +8,7 @@
 import UIKit
 
 protocol ListModuleInteractorInput: NSObject {
+    func checkSettings()
     func getSettings()
     func getListModels()
     func markAsRead(url: URL, index: Int)
@@ -16,6 +17,7 @@ protocol ListModuleInteractorInput: NSObject {
 protocol ListModuleInteractorOutput: NSObject {
     func listItemsRecieved(_ listItems: [ListViewModel])
     func settingsRecieved(_ settings: SettingsModel)
+    func settingsRecieved(newSettings: SettingsModel)
     func listItemsMarkedAsRead(viewModel: ListViewModel, index: Int)
 }
 
@@ -60,10 +62,34 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
         self.getListModels()
     }
     
+    //MARK: - ListModuleInteractorInput
+    func checkSettings() {
+        if self.settingsModel != nil {
+        guard let settingsModel1 = self.settingsModel else { return }
+        let newSettingsModel = self.settingsService.getSettingsInfo()
+        
+        guard let newActiveResourses = newSettingsModel.getActiveResources(),
+              let oldActiveResourses = settingsModel1.getActiveResources() else { return }
+                
+        if Set(newActiveResourses) != Set(oldActiveResourses) {
+            self.settingsModel = newSettingsModel
+            self.getListModels()
+        } else if newSettingsModel.mode != settingsModel1.mode {
+            self.settingsModel = newSettingsModel
+            self.presenter?.settingsRecieved(newSettingsModel)
+        }
+        } else {
+            self.getSettings()
+            self.getListModels()
+        }
+    }
+    
     func getSettings() {
-        let settingsModel = self.settingsService.getSettingsInfo()
-        self.settingsModel = settingsModel
-        self.presenter?.settingsRecieved(settingsModel)
+        if self.settingsModel == nil {
+            let settingsModel = self.settingsService.getSettingsInfo()
+            self.settingsModel = settingsModel
+            self.presenter?.settingsRecieved(newSettings: settingsModel)
+        }
     }
     
     func getListModels() {
@@ -79,8 +105,13 @@ class ListModuleInteractor: NSObject, ListModuleInteractorInput {
             self.cleanNotActualReadMarks(settings: settingsModel, articles: articlesArray)
             let readMarksModel = self.readUrlsService.getReadUrls()
             
+        
+                let array = self.buildListViewModels(articles: articlesArray, readMarksModel: readMarksModel)
+                let sorted = array.sorted {
+                    $0.publishedAt > $1.publishedAt
+                }
             DispatchQueue.main.async {
-                self.presenter?.listItemsRecieved(self.buildListViewModels(articles: articlesArray, readMarksModel: readMarksModel))
+                self.presenter?.listItemsRecieved(sorted)
             }
         }
     }

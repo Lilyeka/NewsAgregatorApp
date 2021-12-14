@@ -10,6 +10,7 @@ import UIKit
 protocol ListModuleViewOutput: NSObject {
    
     func listItemDidSelect(item: ListViewModel, index: Int)
+    func viewWillAppear()
 }
 
 class ListViewController: UIViewController {
@@ -37,6 +38,11 @@ class ListViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setupUI()
         self.setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter?.viewWillAppear()
     }
         
     // MARK: - Private methods
@@ -96,18 +102,13 @@ extension ListViewController: UITableViewDataSource {
 // MARK: - ListModuleViewInput
 extension ListViewController: ListModuleViewInput {
     
+    func updateView(newSettings: SettingsModel) {
+        self.settingsModel = newSettings
+    }
+    
     func updateView(with: SettingsModel) {
-        //   guard let settingsModel = self.settingsModel else {
         self.settingsModel = with
-        //     return
-        //}
-        
-        // TODO: - обновляем таблицу если своя текущая модель ненулевая
-        // и не равна with
-        //        if settingsModel != with {
-        //            self.settingsModel = with
-        //            tableView.reloadData()
-        //        }
+        self.tableView.reloadData()
     }
     
     func updateView(with: [ListViewModel]) {

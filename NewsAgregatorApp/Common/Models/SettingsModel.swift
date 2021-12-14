@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class SettingsModel: Codable {
     var mode: ShowModes
     var resourses: [ShowResources]

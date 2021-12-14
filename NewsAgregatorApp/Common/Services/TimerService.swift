@@ -13,7 +13,7 @@ class TimerService {
     
     var timer: Timer?
     var intervalComponent: Calendar.Component = .second
-    var interval: Int? = 10
+    var interval: Int? = 300
  
     var alarmTimerTime: Date?
     var stopTimerTime: Date?
@@ -56,7 +56,6 @@ class TimerService {
         self.startTimerTime = sender.fireDate
         notificationCenter.post(name: NSNotification.Name.timerNotification,
                                         object: nil)
-        //print(" ALARM ALARM ALARM ALARM ALARM ALARM \(sender.fireDate)")
     }
     
     @objc func appMovedToBackgroundAction(_ notification: Notification?) {

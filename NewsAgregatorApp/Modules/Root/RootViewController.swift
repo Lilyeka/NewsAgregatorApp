@@ -27,7 +27,7 @@ class RootViewController: UIViewController, RootInputProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .yellow
+        self.view.backgroundColor = .white
     }
     
     override func viewDidAppear(_ animated: Bool) {

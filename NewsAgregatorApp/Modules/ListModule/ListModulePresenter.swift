@@ -11,6 +11,7 @@ protocol ListModuleViewInput: NSObject {
     func updateView(with: [ListViewModel])
     func updateView(with: SettingsModel)
     func updateView(with: ListViewModel, index: Int)
+    func updateView(newSettings: SettingsModel)
 }
 
 class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractorOutput, ListRouterOutput {
@@ -31,6 +32,10 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractor
         self.router.openURL(url: itemUrl, index: index)
     }
     
+    func viewWillAppear() {
+        self.interactor.checkSettings()
+    }
+    
     // MARK: - ListModuleInteractorOutput
     func listItemsRecieved(_ listItems: [ListViewModel]) {
         self.view?.updateView(with: listItems)
@@ -40,9 +45,14 @@ class ListModulePresenter:  NSObject, ListModuleViewOutput, ListModuleInteractor
         self.view?.updateView(with: settings)
     }
     
+    func settingsRecieved(newSettings: SettingsModel) {
+        self.view?.updateView(newSettings: newSettings)
+    }
+    
     func listItemsMarkedAsRead(viewModel: ListViewModel, index: Int) {
         self.view?.updateView(with: viewModel, index: index)
     }
+    
     // MARK: - ListRouterOutput
     func urlOpened(url: URL, index: Int) {
         self.interactor.markAsRead(url: url, index: index)

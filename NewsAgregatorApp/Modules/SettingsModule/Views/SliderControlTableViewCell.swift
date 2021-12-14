@@ -9,7 +9,7 @@ import UIKit
 
 class SliderControlTableViewCell: UITableViewCell {
     
-    var model = 10
+    var model = 300
     var onSliderChanged:((Int) -> Void)?
     
     let slider: UISlider = {
